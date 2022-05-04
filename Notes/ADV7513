@@ -1,0 +1,21 @@
+Inputs
+
+Video Data
+	D[23:0] - R[7:0], G[7:0],B[7:0] OR Cr[7:0], Y[7:0], Cb[7:0] For Input ID (R0x15[3:1]) 0b000, no need to set input style(R0x16[3:2])
+	CLK 	-
+	DE 	- Data Enable
+	Vsync 	- Vertical Sync
+	Hsync 	- Horizontal Sync
+
+
+
+Other
+	HPD 	- Hot Plug Detect. Power on when HDMI sync detected
+
+Outputs
+
+HDMI Data
+	Tx0 	-
+	Tx1 	-
+	Tx2 	-
+	TxC 	-
