@@ -1,21 +1,28 @@
 Inputs
 
 Video Data
-	D[23:0] - R[7:0], G[7:0],B[7:0] OR Cr[7:0], Y[7:0], Cb[7:0] For Input ID (R0x15[3:1]) 0b000, no need to set input style(R0x16[3:2])
-	CLK 	-
-	DE 	- Data Enable
-	Vsync 	- Vertical Sync
-	Hsync 	- Horizontal Sync
+	D[23:0] 	- R[7:0], G[7:0],B[7:0] OR Cr[7:0], Y[7:0], Cb[7:0] For Input ID (R0x15[3:1]) 0b000, no need to set input style(R0x16[3:2])
+	CLK 		- Clock
+	DE 		- Data Enable
+	Vsync 		- Vertical Sync
+	Hsync 		- Horizontal Sync
 
 
+I2C (HUG-6.6.2)
+	Start Signal 	-
+	Slave Address 	-
+	Reg Address 	-
+	Data Byte 	-
+	Stop Signal 	-
+	Ack 		- Acknowledge
 
 Other
-	HPD 	- Hot Plug Detect. Power on when HDMI sync detected
+	HPD 		- Hot Plug Detect. Power on when HDMI sink detected (HUG-6.1.4)
 
 Outputs
 
 HDMI Data
-	Tx0 	-
-	Tx1 	-
-	Tx2 	-
-	TxC 	-
+	Tx0 		-
+	Tx1 		-
+	Tx2 		-
+	TxC 		-
