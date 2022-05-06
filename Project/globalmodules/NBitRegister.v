@@ -1,14 +1,14 @@
 // Lectorial 5
 // Software defined UART
 // N-Bit Register
-module NBitRegister{clk,clear_n,d,ld,q};
+module NBitRegister(clk,clr_n,d,ld,q);
 	parameter WIDTH = 32;
 	parameter PRELOAD = 0;
 
 	input clk; 			// Clock
-	input clear_n; 			// Active low clear (async)
+	input clr_n; 			// Active low clear (async)
 	input [WIDTH-1:0] d; 		// Data input
-	input ld 			// Active High Enable
+	input ld; 			// Active High Enable
 
 	output reg [WIDTH-1:0] q; 	// Data output
 

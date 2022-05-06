@@ -1,12 +1,12 @@
 // Lectorial 5
 // Software defined UART
 // Address Decoder
-module AddressDecoder{
+module AddressDecoder(
 	input [2:0] addressIn,
 	input enable,
 
 	output reg [7:0] decodedAddress
-};
+);
 
 always @(addressIn, enable)
 begin
