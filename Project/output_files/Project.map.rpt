@@ -1,0 +1,413 @@
+Analysis & Synthesis report for Project
+Fri May  6 17:54:36 2022
+Quartus Prime Version 21.1.0 Build 842 10/21/2021 SJ Lite Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Analysis & Synthesis Summary
+  3. Analysis & Synthesis Settings
+  4. Parallel Compilation
+  5. Analysis & Synthesis Source Files Read
+  6. Analysis & Synthesis Resource Usage Summary
+  7. Analysis & Synthesis Resource Utilization by Entity
+  8. General Register Statistics
+  9. Post-Synthesis Netlist Statistics for Top Partition
+ 10. Elapsed Time Per Partition
+ 11. Analysis & Synthesis Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 2021  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and any partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details, at
+https://fpgasoftware.intel.com/eula.
+
+
+
++-------------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                                  ;
++---------------------------------+---------------------------------------------+
+; Analysis & Synthesis Status     ; Successful - Fri May  6 17:54:36 2022       ;
+; Quartus Prime Version           ; 21.1.0 Build 842 10/21/2021 SJ Lite Edition ;
+; Revision Name                   ; Project                                     ;
+; Top-level Entity Name           ; Project                                     ;
+; Family                          ; Cyclone V                                   ;
+; Logic utilization (in ALMs)     ; N/A                                         ;
+; Total registers                 ; 0                                           ;
+; Total pins                      ; 125                                         ;
+; Total virtual pins              ; 0                                           ;
+; Total block memory bits         ; 0                                           ;
+; Total DSP Blocks                ; 0                                           ;
+; Total HSSI RX PCSs              ; 0                                           ;
+; Total HSSI PMA RX Deserializers ; 0                                           ;
+; Total HSSI TX PCSs              ; 0                                           ;
+; Total HSSI PMA TX Serializers   ; 0                                           ;
+; Total PLLs                      ; 0                                           ;
+; Total DLLs                      ; 0                                           ;
++---------------------------------+---------------------------------------------+
+
+
++---------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Settings                                                                                             ;
++---------------------------------------------------------------------------------+--------------------+--------------------+
+; Option                                                                          ; Setting            ; Default Value      ;
++---------------------------------------------------------------------------------+--------------------+--------------------+
+; Device                                                                          ; 5CSEBA6U23I7       ;                    ;
+; Top-level entity name                                                           ; Project            ; Project            ;
+; Family name                                                                     ; Cyclone V          ; Cyclone V          ;
+; Use smart compilation                                                           ; Off                ; Off                ;
+; Maximum processors allowed for parallel compilation                             ; All                ; All                ;
+; Enable parallel Assembler and Timing Analyzer during compilation                ; On                 ; On                 ;
+; Enable compact report table                                                     ; Off                ; Off                ;
+; Restructure Multiplexers                                                        ; Auto               ; Auto               ;
+; MLAB Add Timing Constraints For Mixed-Port Feed-Through Mode Setting Don't Care ; Off                ; Off                ;
+; Create Debugging Nodes for IP Cores                                             ; Off                ; Off                ;
+; Preserve fewer node names                                                       ; On                 ; On                 ;
+; Intel FPGA IP Evaluation Mode                                                   ; Enable             ; Enable             ;
+; Verilog Version                                                                 ; Verilog_2001       ; Verilog_2001       ;
+; VHDL Version                                                                    ; VHDL_1993          ; VHDL_1993          ;
+; State Machine Processing                                                        ; Auto               ; Auto               ;
+; Safe State Machine                                                              ; Off                ; Off                ;
+; Extract Verilog State Machines                                                  ; On                 ; On                 ;
+; Extract VHDL State Machines                                                     ; On                 ; On                 ;
+; Ignore Verilog initial constructs                                               ; Off                ; Off                ;
+; Iteration limit for constant Verilog loops                                      ; 5000               ; 5000               ;
+; Iteration limit for non-constant Verilog loops                                  ; 250                ; 250                ;
+; Add Pass-Through Logic to Inferred RAMs                                         ; On                 ; On                 ;
+; Infer RAMs from Raw Logic                                                       ; On                 ; On                 ;
+; Parallel Synthesis                                                              ; On                 ; On                 ;
+; DSP Block Balancing                                                             ; Auto               ; Auto               ;
+; NOT Gate Push-Back                                                              ; On                 ; On                 ;
+; Power-Up Don't Care                                                             ; On                 ; On                 ;
+; Remove Redundant Logic Cells                                                    ; Off                ; Off                ;
+; Remove Duplicate Registers                                                      ; On                 ; On                 ;
+; Ignore CARRY Buffers                                                            ; Off                ; Off                ;
+; Ignore CASCADE Buffers                                                          ; Off                ; Off                ;
+; Ignore GLOBAL Buffers                                                           ; Off                ; Off                ;
+; Ignore ROW GLOBAL Buffers                                                       ; Off                ; Off                ;
+; Ignore LCELL Buffers                                                            ; Off                ; Off                ;
+; Ignore SOFT Buffers                                                             ; On                 ; On                 ;
+; Limit AHDL Integers to 32 Bits                                                  ; Off                ; Off                ;
+; Optimization Technique                                                          ; Balanced           ; Balanced           ;
+; Carry Chain Length                                                              ; 70                 ; 70                 ;
+; Auto Carry Chains                                                               ; On                 ; On                 ;
+; Auto Open-Drain Pins                                                            ; On                 ; On                 ;
+; Perform WYSIWYG Primitive Resynthesis                                           ; Off                ; Off                ;
+; Auto ROM Replacement                                                            ; On                 ; On                 ;
+; Auto RAM Replacement                                                            ; On                 ; On                 ;
+; Auto DSP Block Replacement                                                      ; On                 ; On                 ;
+; Auto Shift Register Replacement                                                 ; Auto               ; Auto               ;
+; Allow Shift Register Merging across Hierarchies                                 ; Auto               ; Auto               ;
+; Auto Clock Enable Replacement                                                   ; On                 ; On                 ;
+; Strict RAM Replacement                                                          ; Off                ; Off                ;
+; Allow Synchronous Control Signals                                               ; On                 ; On                 ;
+; Force Use of Synchronous Clear Signals                                          ; Off                ; Off                ;
+; Auto Resource Sharing                                                           ; Off                ; Off                ;
+; Allow Any RAM Size For Recognition                                              ; Off                ; Off                ;
+; Allow Any ROM Size For Recognition                                              ; Off                ; Off                ;
+; Allow Any Shift Register Size For Recognition                                   ; Off                ; Off                ;
+; Use LogicLock Constraints during Resource Balancing                             ; On                 ; On                 ;
+; Ignore translate_off and synthesis_off directives                               ; Off                ; Off                ;
+; Timing-Driven Synthesis                                                         ; On                 ; On                 ;
+; Report Parameter Settings                                                       ; On                 ; On                 ;
+; Report Source Assignments                                                       ; On                 ; On                 ;
+; Report Connectivity Checks                                                      ; On                 ; On                 ;
+; Ignore Maximum Fan-Out Assignments                                              ; Off                ; Off                ;
+; Synchronization Register Chain Length                                           ; 3                  ; 3                  ;
+; Power Optimization During Synthesis                                             ; Normal compilation ; Normal compilation ;
+; HDL message level                                                               ; Level2             ; Level2             ;
+; Suppress Register Optimization Related Messages                                 ; Off                ; Off                ;
+; Number of Removed Registers Reported in Synthesis Report                        ; 5000               ; 5000               ;
+; Number of Swept Nodes Reported in Synthesis Report                              ; 5000               ; 5000               ;
+; Number of Inverted Registers Reported in Synthesis Report                       ; 100                ; 100                ;
+; Clock MUX Protection                                                            ; On                 ; On                 ;
+; Auto Gated Clock Conversion                                                     ; Off                ; Off                ;
+; Block Design Naming                                                             ; Auto               ; Auto               ;
+; SDC constraint protection                                                       ; Off                ; Off                ;
+; Synthesis Effort                                                                ; Auto               ; Auto               ;
+; Shift Register Replacement - Allow Asynchronous Clear Signal                    ; On                 ; On                 ;
+; Pre-Mapping Resynthesis Optimization                                            ; Off                ; Off                ;
+; Analysis & Synthesis Message Level                                              ; Medium             ; Medium             ;
+; Disable Register Merging Across Hierarchies                                     ; Auto               ; Auto               ;
+; Resource Aware Inference For Block RAM                                          ; On                 ; On                 ;
+; Automatic Parallel Synthesis                                                    ; On                 ; On                 ;
+; Partial Reconfiguration Bitstream ID                                            ; Off                ; Off                ;
++---------------------------------------------------------------------------------+--------------------+--------------------+
+
+
++------------------------------------------+
+; Parallel Compilation                     ;
++----------------------------+-------------+
+; Processors                 ; Number      ;
++----------------------------+-------------+
+; Number detected on machine ; 8           ;
+; Maximum allowed            ; 4           ;
+;                            ;             ;
+; Average used               ; 1.00        ;
+; Maximum used               ; 1           ;
+;                            ;             ;
+; Usage by Processor         ; % Time Used ;
+;     Processor 1            ; 100.0%      ;
++----------------------------+-------------+
+
+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                                             ;
++----------------------------------+-----------------+------------------------------+------------------------------------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                                                         ; Library ;
++----------------------------------+-----------------+------------------------------+------------------------------------------------------------------------------------------------------+---------+
+; Project.v                        ; yes             ; Auto-Found Verilog HDL File  ; /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v ;         ;
++----------------------------------+-----------------+------------------------------+------------------------------------------------------------------------------------------------------+---------+
+
+
++-----------------------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary                     ;
++---------------------------------------------+-------------------+
+; Resource                                    ; Usage             ;
++---------------------------------------------+-------------------+
+; Estimate of Logic utilization (ALMs needed) ; 0                 ;
+;                                             ;                   ;
+; Combinational ALUT usage for logic          ; 0                 ;
+;     -- 7 input functions                    ; 0                 ;
+;     -- 6 input functions                    ; 0                 ;
+;     -- 5 input functions                    ; 0                 ;
+;     -- 4 input functions                    ; 0                 ;
+;     -- <=3 input functions                  ; 0                 ;
+;                                             ;                   ;
+; Dedicated logic registers                   ; 0                 ;
+;                                             ;                   ;
+; I/O pins                                    ; 125               ;
+;                                             ;                   ;
+; Total DSP Blocks                            ; 0                 ;
+;                                             ;                   ;
+; Maximum fan-out node                        ; Avalon_address[0] ;
+; Maximum fan-out                             ; 1                 ;
+; Total fan-out                               ; 125               ;
+; Average fan-out                             ; 0.50              ;
++---------------------------------------------+-------------------+
+
+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                    ;
++----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------+-------------+--------------+
+; Compilation Hierarchy Node ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name ; Entity Name ; Library Name ;
++----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------+-------------+--------------+
+; |Project                   ; 0 (0)               ; 0 (0)                     ; 0                 ; 0          ; 125  ; 0            ; |Project            ; Project     ; work         ;
++----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------+-------------+--------------+
+Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
++------------------------------------------------------+
+; General Register Statistics                          ;
++----------------------------------------------+-------+
+; Statistic                                    ; Value ;
++----------------------------------------------+-------+
+; Total registers                              ; 0     ;
+; Number of registers using Synchronous Clear  ; 0     ;
+; Number of registers using Synchronous Load   ; 0     ;
+; Number of registers using Asynchronous Clear ; 0     ;
+; Number of registers using Asynchronous Load  ; 0     ;
+; Number of registers using Clock Enable       ; 0     ;
+; Number of registers using Preset             ; 0     ;
++----------------------------------------------+-------+
+
+
++-----------------------------------------------------+
+; Post-Synthesis Netlist Statistics for Top Partition ;
++-----------------------+-----------------------------+
+; Type                  ; Count                       ;
++-----------------------+-----------------------------+
+; arriav_lcell_comb     ; 1                           ;
+;     normal            ; 1                           ;
+;         0 data inputs ; 1                           ;
+; boundary_port         ; 125                         ;
+;                       ;                             ;
+; Max LUT depth         ; 0.00                        ;
+; Average LUT depth     ; 0.00                        ;
++-----------------------+-----------------------------+
+
+
++-------------------------------+
+; Elapsed Time Per Partition    ;
++----------------+--------------+
+; Partition Name ; Elapsed Time ;
++----------------+--------------+
+; Top            ; 00:00:00     ;
++----------------+--------------+
+
+
++-------------------------------+
+; Analysis & Synthesis Messages ;
++-------------------------------+
+Info: *******************************************************************
+Info: Running Quartus Prime Analysis & Synthesis
+    Info: Version 21.1.0 Build 842 10/21/2021 SJ Lite Edition
+    Info: Processing started: Fri May  6 17:54:24 2022
+Info: Command: quartus_map --read_settings_files=on --write_settings_files=off Project -c Project
+Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
+Warning (12125): Using design file Project.v, which is not specified as a design file for the current project, but contains definitions for 1 design units and 1 entities in project
+    Info (12023): Found entity 1: Project File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 1
+Info (12127): Elaborating entity "Project" for the top level hierarchy
+Warning (10034): Output port "Avalon_readdata" at Project.v(5) has no driver File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 5
+Warning (10034): Output port "ADV_Data" at Project.v(15) has no driver File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 15
+Warning (10034): Output port "ADV_DE" at Project.v(10) has no driver File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 10
+Warning (10034): Output port "ADV_Hsync" at Project.v(11) has no driver File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 11
+Warning (10034): Output port "ADV_Vsync" at Project.v(12) has no driver File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 12
+Warning (10034): Output port "ADV_CLK" at Project.v(13) has no driver File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 13
+Warning (10034): Output port "ADV_I2C_SDA" at Project.v(16) has no driver File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 16
+Warning (10034): Output port "ADV_I2C_SCL" at Project.v(18) has no driver File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 18
+Warning (13024): Output pins are stuck at VCC or GND
+    Warning (13410): Pin "Avalon_readdata[0]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 5
+    Warning (13410): Pin "Avalon_readdata[1]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 5
+    Warning (13410): Pin "Avalon_readdata[2]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 5
+    Warning (13410): Pin "Avalon_readdata[3]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 5
+    Warning (13410): Pin "Avalon_readdata[4]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 5
+    Warning (13410): Pin "Avalon_readdata[5]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 5
+    Warning (13410): Pin "Avalon_readdata[6]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 5
+    Warning (13410): Pin "Avalon_readdata[7]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 5
+    Warning (13410): Pin "Avalon_readdata[8]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 5
+    Warning (13410): Pin "Avalon_readdata[9]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 5
+    Warning (13410): Pin "Avalon_readdata[10]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 5
+    Warning (13410): Pin "Avalon_readdata[11]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 5
+    Warning (13410): Pin "Avalon_readdata[12]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 5
+    Warning (13410): Pin "Avalon_readdata[13]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 5
+    Warning (13410): Pin "Avalon_readdata[14]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 5
+    Warning (13410): Pin "Avalon_readdata[15]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 5
+    Warning (13410): Pin "Avalon_readdata[16]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 5
+    Warning (13410): Pin "Avalon_readdata[17]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 5
+    Warning (13410): Pin "Avalon_readdata[18]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 5
+    Warning (13410): Pin "Avalon_readdata[19]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 5
+    Warning (13410): Pin "Avalon_readdata[20]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 5
+    Warning (13410): Pin "Avalon_readdata[21]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 5
+    Warning (13410): Pin "Avalon_readdata[22]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 5
+    Warning (13410): Pin "Avalon_readdata[23]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 5
+    Warning (13410): Pin "Avalon_readdata[24]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 5
+    Warning (13410): Pin "Avalon_readdata[25]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 5
+    Warning (13410): Pin "Avalon_readdata[26]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 5
+    Warning (13410): Pin "Avalon_readdata[27]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 5
+    Warning (13410): Pin "Avalon_readdata[28]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 5
+    Warning (13410): Pin "Avalon_readdata[29]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 5
+    Warning (13410): Pin "Avalon_readdata[30]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 5
+    Warning (13410): Pin "Avalon_readdata[31]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 5
+    Warning (13410): Pin "ADV_DE" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 10
+    Warning (13410): Pin "ADV_Hsync" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 11
+    Warning (13410): Pin "ADV_Vsync" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 12
+    Warning (13410): Pin "ADV_CLK" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 13
+    Warning (13410): Pin "ADV_Data[0]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 15
+    Warning (13410): Pin "ADV_Data[1]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 15
+    Warning (13410): Pin "ADV_Data[2]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 15
+    Warning (13410): Pin "ADV_Data[3]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 15
+    Warning (13410): Pin "ADV_Data[4]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 15
+    Warning (13410): Pin "ADV_Data[5]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 15
+    Warning (13410): Pin "ADV_Data[6]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 15
+    Warning (13410): Pin "ADV_Data[7]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 15
+    Warning (13410): Pin "ADV_Data[8]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 15
+    Warning (13410): Pin "ADV_Data[9]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 15
+    Warning (13410): Pin "ADV_Data[10]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 15
+    Warning (13410): Pin "ADV_Data[11]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 15
+    Warning (13410): Pin "ADV_Data[12]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 15
+    Warning (13410): Pin "ADV_Data[13]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 15
+    Warning (13410): Pin "ADV_Data[14]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 15
+    Warning (13410): Pin "ADV_Data[15]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 15
+    Warning (13410): Pin "ADV_Data[16]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 15
+    Warning (13410): Pin "ADV_Data[17]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 15
+    Warning (13410): Pin "ADV_Data[18]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 15
+    Warning (13410): Pin "ADV_Data[19]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 15
+    Warning (13410): Pin "ADV_Data[20]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 15
+    Warning (13410): Pin "ADV_Data[21]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 15
+    Warning (13410): Pin "ADV_Data[22]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 15
+    Warning (13410): Pin "ADV_Data[23]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 15
+    Warning (13410): Pin "ADV_Data[24]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 15
+    Warning (13410): Pin "ADV_Data[25]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 15
+    Warning (13410): Pin "ADV_Data[26]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 15
+    Warning (13410): Pin "ADV_Data[27]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 15
+    Warning (13410): Pin "ADV_Data[28]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 15
+    Warning (13410): Pin "ADV_Data[29]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 15
+    Warning (13410): Pin "ADV_Data[30]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 15
+    Warning (13410): Pin "ADV_Data[31]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 15
+    Warning (13410): Pin "ADV_Data[32]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 15
+    Warning (13410): Pin "ADV_I2C_SDA" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 16
+    Warning (13410): Pin "ADV_I2C_SCL" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 18
+Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
+    Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
+Warning (21074): Design contains 54 input pin(s) that do not drive logic
+    Warning (15610): No output dependent on input pin "Avalon_address[0]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 3
+    Warning (15610): No output dependent on input pin "Avalon_address[1]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 3
+    Warning (15610): No output dependent on input pin "Avalon_address[2]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 3
+    Warning (15610): No output dependent on input pin "Avalon_address[3]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 3
+    Warning (15610): No output dependent on input pin "Avalon_address[4]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 3
+    Warning (15610): No output dependent on input pin "Avalon_address[5]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 3
+    Warning (15610): No output dependent on input pin "Avalon_address[6]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 3
+    Warning (15610): No output dependent on input pin "Avalon_address[7]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 3
+    Warning (15610): No output dependent on input pin "Avalon_address[8]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 3
+    Warning (15610): No output dependent on input pin "Avalon_address[9]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 3
+    Warning (15610): No output dependent on input pin "Avalon_address[10]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 3
+    Warning (15610): No output dependent on input pin "Avalon_address[11]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 3
+    Warning (15610): No output dependent on input pin "Avalon_address[12]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 3
+    Warning (15610): No output dependent on input pin "Avalon_address[13]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 3
+    Warning (15610): No output dependent on input pin "Avalon_address[14]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 3
+    Warning (15610): No output dependent on input pin "Avalon_address[15]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 3
+    Warning (15610): No output dependent on input pin "Avalon_address[16]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 3
+    Warning (15610): No output dependent on input pin "Avalon_address[17]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 3
+    Warning (15610): No output dependent on input pin "Avalon_address[18]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 3
+    Warning (15610): No output dependent on input pin "Avalon_read" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 4
+    Warning (15610): No output dependent on input pin "Avalon_write" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
+    Warning (15610): No output dependent on input pin "Avalon_writedata[0]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 7
+    Warning (15610): No output dependent on input pin "Avalon_writedata[1]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 7
+    Warning (15610): No output dependent on input pin "Avalon_writedata[2]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 7
+    Warning (15610): No output dependent on input pin "Avalon_writedata[3]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 7
+    Warning (15610): No output dependent on input pin "Avalon_writedata[4]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 7
+    Warning (15610): No output dependent on input pin "Avalon_writedata[5]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 7
+    Warning (15610): No output dependent on input pin "Avalon_writedata[6]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 7
+    Warning (15610): No output dependent on input pin "Avalon_writedata[7]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 7
+    Warning (15610): No output dependent on input pin "Avalon_writedata[8]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 7
+    Warning (15610): No output dependent on input pin "Avalon_writedata[9]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 7
+    Warning (15610): No output dependent on input pin "Avalon_writedata[10]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 7
+    Warning (15610): No output dependent on input pin "Avalon_writedata[11]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 7
+    Warning (15610): No output dependent on input pin "Avalon_writedata[12]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 7
+    Warning (15610): No output dependent on input pin "Avalon_writedata[13]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 7
+    Warning (15610): No output dependent on input pin "Avalon_writedata[14]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 7
+    Warning (15610): No output dependent on input pin "Avalon_writedata[15]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 7
+    Warning (15610): No output dependent on input pin "Avalon_writedata[16]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 7
+    Warning (15610): No output dependent on input pin "Avalon_writedata[17]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 7
+    Warning (15610): No output dependent on input pin "Avalon_writedata[18]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 7
+    Warning (15610): No output dependent on input pin "Avalon_writedata[19]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 7
+    Warning (15610): No output dependent on input pin "Avalon_writedata[20]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 7
+    Warning (15610): No output dependent on input pin "Avalon_writedata[21]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 7
+    Warning (15610): No output dependent on input pin "Avalon_writedata[22]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 7
+    Warning (15610): No output dependent on input pin "Avalon_writedata[23]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 7
+    Warning (15610): No output dependent on input pin "Avalon_writedata[24]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 7
+    Warning (15610): No output dependent on input pin "Avalon_writedata[25]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 7
+    Warning (15610): No output dependent on input pin "Avalon_writedata[26]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 7
+    Warning (15610): No output dependent on input pin "Avalon_writedata[27]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 7
+    Warning (15610): No output dependent on input pin "Avalon_writedata[28]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 7
+    Warning (15610): No output dependent on input pin "Avalon_writedata[29]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 7
+    Warning (15610): No output dependent on input pin "Avalon_writedata[30]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 7
+    Warning (15610): No output dependent on input pin "Avalon_writedata[31]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 7
+    Warning (15610): No output dependent on input pin "ADV_HPD" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 14
+Info (21057): Implemented 125 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 54 input pins
+    Info (21059): Implemented 71 output pins
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 136 warnings
+    Info: Peak virtual memory: 430 megabytes
+    Info: Processing ended: Fri May  6 17:54:36 2022
+    Info: Elapsed time: 00:00:12
+    Info: Total CPU time (on all processors): 00:00:23
+
+
