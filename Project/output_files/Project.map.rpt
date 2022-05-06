@@ -1,5 +1,5 @@
 Analysis & Synthesis report for Project
-Fri May  6 21:34:10 2022
+Fri May  6 22:13:02 2022
 Quartus Prime Version 21.1.0 Build 842 10/21/2021 SJ Lite Edition
 
 
@@ -43,14 +43,14 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                  ;
 +---------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Fri May  6 21:34:10 2022       ;
+; Analysis & Synthesis Status     ; Successful - Fri May  6 22:13:02 2022       ;
 ; Quartus Prime Version           ; 21.1.0 Build 842 10/21/2021 SJ Lite Edition ;
 ; Revision Name                   ; Project                                     ;
 ; Top-level Entity Name           ; Project                                     ;
 ; Family                          ; Cyclone V                                   ;
 ; Logic utilization (in ALMs)     ; N/A                                         ;
 ; Total registers                 ; 0                                           ;
-; Total pins                      ; 125                                         ;
+; Total pins                      ; 117                                         ;
 ; Total virtual pins              ; 0                                           ;
 ; Total block memory bits         ; 0                                           ;
 ; Total DSP Blocks                ; 0                                           ;
@@ -176,31 +176,31 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------------+-----------------+------------------------+------------------------------------------------------------------------------------------------------+---------+
 
 
-+--------------------------------------------------------------+
-; Analysis & Synthesis Resource Usage Summary                  ;
-+---------------------------------------------+----------------+
-; Resource                                    ; Usage          ;
-+---------------------------------------------+----------------+
-; Estimate of Logic utilization (ALMs needed) ; 0              ;
-;                                             ;                ;
-; Combinational ALUT usage for logic          ; 0              ;
-;     -- 7 input functions                    ; 0              ;
-;     -- 6 input functions                    ; 0              ;
-;     -- 5 input functions                    ; 0              ;
-;     -- 4 input functions                    ; 0              ;
-;     -- <=3 input functions                  ; 0              ;
-;                                             ;                ;
-; Dedicated logic registers                   ; 0              ;
-;                                             ;                ;
-; I/O pins                                    ; 125            ;
-;                                             ;                ;
-; Total DSP Blocks                            ; 0              ;
-;                                             ;                ;
-; Maximum fan-out node                        ; AXI_Address[0] ;
-; Maximum fan-out                             ; 1              ;
-; Total fan-out                               ; 125            ;
-; Average fan-out                             ; 0.50           ;
-+---------------------------------------------+----------------+
++------------------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary                ;
++---------------------------------------------+--------------+
+; Resource                                    ; Usage        ;
++---------------------------------------------+--------------+
+; Estimate of Logic utilization (ALMs needed) ; 0            ;
+;                                             ;              ;
+; Combinational ALUT usage for logic          ; 0            ;
+;     -- 7 input functions                    ; 0            ;
+;     -- 6 input functions                    ; 0            ;
+;     -- 5 input functions                    ; 0            ;
+;     -- 4 input functions                    ; 0            ;
+;     -- <=3 input functions                  ; 0            ;
+;                                             ;              ;
+; Dedicated logic registers                   ; 0            ;
+;                                             ;              ;
+; I/O pins                                    ; 117          ;
+;                                             ;              ;
+; Total DSP Blocks                            ; 0            ;
+;                                             ;              ;
+; Maximum fan-out node                        ; FPGA_CLK1_50 ;
+; Maximum fan-out                             ; 1            ;
+; Total fan-out                               ; 117          ;
+; Average fan-out                             ; 0.50         ;
++---------------------------------------------+--------------+
 
 
 +----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -208,7 +208,7 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------+-------------+--------------+
 ; Compilation Hierarchy Node ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name ; Entity Name ; Library Name ;
 +----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------+-------------+--------------+
-; |Project                   ; 0 (0)               ; 0 (0)                     ; 0                 ; 0          ; 125  ; 0            ; |Project            ; Project     ; work         ;
+; |Project                   ; 0 (0)               ; 0 (0)                     ; 0                 ; 0          ; 117  ; 0            ; |Project            ; Project     ; work         ;
 +----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------+-------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
@@ -236,7 +236,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; arriav_lcell_comb     ; 1                           ;
 ;     normal            ; 1                           ;
 ;         0 data inputs ; 1                           ;
-; boundary_port         ; 125                         ;
+; boundary_port         ; 117                         ;
 ;                       ;                             ;
 ; Max LUT depth         ; 0.00                        ;
 ; Average LUT depth     ; 0.00                        ;
@@ -258,7 +258,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 21.1.0 Build 842 10/21/2021 SJ Lite Edition
-    Info: Processing started: Fri May  6 21:34:02 2022
+    Info: Processing started: Fri May  6 22:12:53 2022
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off Project -c Project
 Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
 Info (12021): Found 1 design units, including 1 entities, in source file Project.v
@@ -270,150 +270,143 @@ Info (12021): Found 1 design units, including 1 entities, in source file globalm
 Info (12021): Found 1 design units, including 1 entities, in source file globalmodules/AddressDecoder.v
     Info (12023): Found entity 1: AddressDecoder File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/globalmodules/AddressDecoder.v Line: 4
 Info (12127): Elaborating entity "Project" for the top level hierarchy
-Warning (10034): Output port "AXI_ReadData" at Project.v(9) has no driver File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
-Warning (10034): Output port "ADV_Data" at Project.v(21) has no driver File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 21
-Warning (10034): Output port "ADV_DE" at Project.v(17) has no driver File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 17
-Warning (10034): Output port "ADV_Hsync" at Project.v(18) has no driver File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 18
-Warning (10034): Output port "ADV_Vsync" at Project.v(19) has no driver File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 19
-Warning (10034): Output port "ADV_CLK" at Project.v(20) has no driver File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 20
-Warning (10034): Output port "ADV_I2C_SDA" at Project.v(22) has no driver File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 22
-Warning (10034): Output port "ADV_I2C_SCL" at Project.v(24) has no driver File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 24
+Warning (10034): Output port "AXI_ReadData" at Project.v(12) has no driver File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 12
+Warning (10034): Output port "ADV_D" at Project.v(22) has no driver File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 22
+Warning (10034): Output port "ADV_DE" at Project.v(20) has no driver File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 20
+Warning (10034): Output port "ADV_CLK" at Project.v(21) has no driver File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 21
+Warning (10034): Output port "ADV_Hsync" at Project.v(23) has no driver File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 23
+Warning (10034): Output port "ADV_Vsync" at Project.v(24) has no driver File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 24
+Warning (10034): Output port "ADV_SDA" at Project.v(25) has no driver File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 25
+Warning (10034): Output port "ADV_SCL" at Project.v(27) has no driver File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 27
+Warning (12158): Entity "Project" contains only dangling pins
 Warning (13024): Output pins are stuck at VCC or GND
-    Warning (13410): Pin "AXI_ReadData[0]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
-    Warning (13410): Pin "AXI_ReadData[1]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
-    Warning (13410): Pin "AXI_ReadData[2]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
-    Warning (13410): Pin "AXI_ReadData[3]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
-    Warning (13410): Pin "AXI_ReadData[4]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
-    Warning (13410): Pin "AXI_ReadData[5]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
-    Warning (13410): Pin "AXI_ReadData[6]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
-    Warning (13410): Pin "AXI_ReadData[7]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
-    Warning (13410): Pin "AXI_ReadData[8]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
-    Warning (13410): Pin "AXI_ReadData[9]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
-    Warning (13410): Pin "AXI_ReadData[10]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
-    Warning (13410): Pin "AXI_ReadData[11]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
-    Warning (13410): Pin "AXI_ReadData[12]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
-    Warning (13410): Pin "AXI_ReadData[13]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
-    Warning (13410): Pin "AXI_ReadData[14]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
-    Warning (13410): Pin "AXI_ReadData[15]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
-    Warning (13410): Pin "AXI_ReadData[16]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
-    Warning (13410): Pin "AXI_ReadData[17]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
-    Warning (13410): Pin "AXI_ReadData[18]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
-    Warning (13410): Pin "AXI_ReadData[19]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
-    Warning (13410): Pin "AXI_ReadData[20]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
-    Warning (13410): Pin "AXI_ReadData[21]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
-    Warning (13410): Pin "AXI_ReadData[22]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
-    Warning (13410): Pin "AXI_ReadData[23]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
-    Warning (13410): Pin "AXI_ReadData[24]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
-    Warning (13410): Pin "AXI_ReadData[25]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
-    Warning (13410): Pin "AXI_ReadData[26]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
-    Warning (13410): Pin "AXI_ReadData[27]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
-    Warning (13410): Pin "AXI_ReadData[28]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
-    Warning (13410): Pin "AXI_ReadData[29]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
-    Warning (13410): Pin "AXI_ReadData[30]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
-    Warning (13410): Pin "AXI_ReadData[31]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
-    Warning (13410): Pin "ADV_DE" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 17
-    Warning (13410): Pin "ADV_Hsync" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 18
-    Warning (13410): Pin "ADV_Vsync" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 19
-    Warning (13410): Pin "ADV_CLK" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 20
-    Warning (13410): Pin "ADV_Data[0]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 21
-    Warning (13410): Pin "ADV_Data[1]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 21
-    Warning (13410): Pin "ADV_Data[2]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 21
-    Warning (13410): Pin "ADV_Data[3]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 21
-    Warning (13410): Pin "ADV_Data[4]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 21
-    Warning (13410): Pin "ADV_Data[5]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 21
-    Warning (13410): Pin "ADV_Data[6]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 21
-    Warning (13410): Pin "ADV_Data[7]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 21
-    Warning (13410): Pin "ADV_Data[8]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 21
-    Warning (13410): Pin "ADV_Data[9]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 21
-    Warning (13410): Pin "ADV_Data[10]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 21
-    Warning (13410): Pin "ADV_Data[11]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 21
-    Warning (13410): Pin "ADV_Data[12]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 21
-    Warning (13410): Pin "ADV_Data[13]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 21
-    Warning (13410): Pin "ADV_Data[14]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 21
-    Warning (13410): Pin "ADV_Data[15]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 21
-    Warning (13410): Pin "ADV_Data[16]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 21
-    Warning (13410): Pin "ADV_Data[17]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 21
-    Warning (13410): Pin "ADV_Data[18]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 21
-    Warning (13410): Pin "ADV_Data[19]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 21
-    Warning (13410): Pin "ADV_Data[20]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 21
-    Warning (13410): Pin "ADV_Data[21]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 21
-    Warning (13410): Pin "ADV_Data[22]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 21
-    Warning (13410): Pin "ADV_Data[23]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 21
-    Warning (13410): Pin "ADV_Data[24]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 21
-    Warning (13410): Pin "ADV_Data[25]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 21
-    Warning (13410): Pin "ADV_Data[26]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 21
-    Warning (13410): Pin "ADV_Data[27]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 21
-    Warning (13410): Pin "ADV_Data[28]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 21
-    Warning (13410): Pin "ADV_Data[29]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 21
-    Warning (13410): Pin "ADV_Data[30]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 21
-    Warning (13410): Pin "ADV_Data[31]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 21
-    Warning (13410): Pin "ADV_Data[32]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 21
-    Warning (13410): Pin "ADV_I2C_SDA" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 22
-    Warning (13410): Pin "ADV_I2C_SCL" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 24
+    Warning (13410): Pin "AXI_ReadData[0]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 12
+    Warning (13410): Pin "AXI_ReadData[1]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 12
+    Warning (13410): Pin "AXI_ReadData[2]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 12
+    Warning (13410): Pin "AXI_ReadData[3]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 12
+    Warning (13410): Pin "AXI_ReadData[4]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 12
+    Warning (13410): Pin "AXI_ReadData[5]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 12
+    Warning (13410): Pin "AXI_ReadData[6]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 12
+    Warning (13410): Pin "AXI_ReadData[7]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 12
+    Warning (13410): Pin "AXI_ReadData[8]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 12
+    Warning (13410): Pin "AXI_ReadData[9]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 12
+    Warning (13410): Pin "AXI_ReadData[10]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 12
+    Warning (13410): Pin "AXI_ReadData[11]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 12
+    Warning (13410): Pin "AXI_ReadData[12]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 12
+    Warning (13410): Pin "AXI_ReadData[13]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 12
+    Warning (13410): Pin "AXI_ReadData[14]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 12
+    Warning (13410): Pin "AXI_ReadData[15]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 12
+    Warning (13410): Pin "AXI_ReadData[16]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 12
+    Warning (13410): Pin "AXI_ReadData[17]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 12
+    Warning (13410): Pin "AXI_ReadData[18]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 12
+    Warning (13410): Pin "AXI_ReadData[19]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 12
+    Warning (13410): Pin "AXI_ReadData[20]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 12
+    Warning (13410): Pin "AXI_ReadData[21]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 12
+    Warning (13410): Pin "AXI_ReadData[22]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 12
+    Warning (13410): Pin "AXI_ReadData[23]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 12
+    Warning (13410): Pin "AXI_ReadData[24]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 12
+    Warning (13410): Pin "AXI_ReadData[25]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 12
+    Warning (13410): Pin "AXI_ReadData[26]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 12
+    Warning (13410): Pin "AXI_ReadData[27]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 12
+    Warning (13410): Pin "AXI_ReadData[28]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 12
+    Warning (13410): Pin "AXI_ReadData[29]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 12
+    Warning (13410): Pin "AXI_ReadData[30]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 12
+    Warning (13410): Pin "AXI_ReadData[31]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 12
+    Warning (13410): Pin "ADV_DE" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 20
+    Warning (13410): Pin "ADV_CLK" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 21
+    Warning (13410): Pin "ADV_D[0]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 22
+    Warning (13410): Pin "ADV_D[1]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 22
+    Warning (13410): Pin "ADV_D[2]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 22
+    Warning (13410): Pin "ADV_D[3]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 22
+    Warning (13410): Pin "ADV_D[4]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 22
+    Warning (13410): Pin "ADV_D[5]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 22
+    Warning (13410): Pin "ADV_D[6]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 22
+    Warning (13410): Pin "ADV_D[7]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 22
+    Warning (13410): Pin "ADV_D[8]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 22
+    Warning (13410): Pin "ADV_D[9]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 22
+    Warning (13410): Pin "ADV_D[10]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 22
+    Warning (13410): Pin "ADV_D[11]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 22
+    Warning (13410): Pin "ADV_D[12]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 22
+    Warning (13410): Pin "ADV_D[13]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 22
+    Warning (13410): Pin "ADV_D[14]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 22
+    Warning (13410): Pin "ADV_D[15]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 22
+    Warning (13410): Pin "ADV_D[16]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 22
+    Warning (13410): Pin "ADV_D[17]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 22
+    Warning (13410): Pin "ADV_D[18]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 22
+    Warning (13410): Pin "ADV_D[19]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 22
+    Warning (13410): Pin "ADV_D[20]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 22
+    Warning (13410): Pin "ADV_D[21]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 22
+    Warning (13410): Pin "ADV_D[22]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 22
+    Warning (13410): Pin "ADV_D[23]" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 22
+    Warning (13410): Pin "ADV_Hsync" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 23
+    Warning (13410): Pin "ADV_Vsync" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 24
+    Warning (13410): Pin "ADV_SDA" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 25
+    Warning (13410): Pin "ADV_SCL" is stuck at GND File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 27
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Warning (21074): Design contains 54 input pin(s) that do not drive logic
-    Warning (15610): No output dependent on input pin "AXI_Address[0]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 3
-    Warning (15610): No output dependent on input pin "AXI_Address[1]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 3
-    Warning (15610): No output dependent on input pin "AXI_Address[2]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 3
-    Warning (15610): No output dependent on input pin "AXI_Address[3]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 3
-    Warning (15610): No output dependent on input pin "AXI_Address[4]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 3
-    Warning (15610): No output dependent on input pin "AXI_Address[5]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 3
-    Warning (15610): No output dependent on input pin "AXI_Address[6]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 3
-    Warning (15610): No output dependent on input pin "AXI_Address[7]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 3
-    Warning (15610): No output dependent on input pin "AXI_Address[8]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 3
-    Warning (15610): No output dependent on input pin "AXI_Address[9]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 3
-    Warning (15610): No output dependent on input pin "AXI_Address[10]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 3
-    Warning (15610): No output dependent on input pin "AXI_Address[11]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 3
-    Warning (15610): No output dependent on input pin "AXI_Address[12]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 3
-    Warning (15610): No output dependent on input pin "AXI_Address[13]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 3
-    Warning (15610): No output dependent on input pin "AXI_Address[14]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 3
-    Warning (15610): No output dependent on input pin "AXI_Address[15]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 3
-    Warning (15610): No output dependent on input pin "AXI_Address[16]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 3
-    Warning (15610): No output dependent on input pin "AXI_Address[17]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 3
-    Warning (15610): No output dependent on input pin "AXI_Address[18]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 3
-    Warning (15610): No output dependent on input pin "AXI_Read" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 4
-    Warning (15610): No output dependent on input pin "AXI_Rrite" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 5
-    Warning (15610): No output dependent on input pin "AXI_WriteData[0]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
-    Warning (15610): No output dependent on input pin "AXI_WriteData[1]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
-    Warning (15610): No output dependent on input pin "AXI_WriteData[2]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
-    Warning (15610): No output dependent on input pin "AXI_WriteData[3]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
-    Warning (15610): No output dependent on input pin "AXI_WriteData[4]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
-    Warning (15610): No output dependent on input pin "AXI_WriteData[5]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
-    Warning (15610): No output dependent on input pin "AXI_WriteData[6]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
-    Warning (15610): No output dependent on input pin "AXI_WriteData[7]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
-    Warning (15610): No output dependent on input pin "AXI_WriteData[8]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
-    Warning (15610): No output dependent on input pin "AXI_WriteData[9]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
-    Warning (15610): No output dependent on input pin "AXI_WriteData[10]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
-    Warning (15610): No output dependent on input pin "AXI_WriteData[11]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
-    Warning (15610): No output dependent on input pin "AXI_WriteData[12]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
-    Warning (15610): No output dependent on input pin "AXI_WriteData[13]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
-    Warning (15610): No output dependent on input pin "AXI_WriteData[14]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
-    Warning (15610): No output dependent on input pin "AXI_WriteData[15]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
-    Warning (15610): No output dependent on input pin "AXI_WriteData[16]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
-    Warning (15610): No output dependent on input pin "AXI_WriteData[17]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
-    Warning (15610): No output dependent on input pin "AXI_WriteData[18]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
-    Warning (15610): No output dependent on input pin "AXI_WriteData[19]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
-    Warning (15610): No output dependent on input pin "AXI_WriteData[20]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
-    Warning (15610): No output dependent on input pin "AXI_WriteData[21]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
-    Warning (15610): No output dependent on input pin "AXI_WriteData[22]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
-    Warning (15610): No output dependent on input pin "AXI_WriteData[23]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
-    Warning (15610): No output dependent on input pin "AXI_WriteData[24]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
-    Warning (15610): No output dependent on input pin "AXI_WriteData[25]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
-    Warning (15610): No output dependent on input pin "AXI_WriteData[26]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
-    Warning (15610): No output dependent on input pin "AXI_WriteData[27]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
-    Warning (15610): No output dependent on input pin "AXI_WriteData[28]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
-    Warning (15610): No output dependent on input pin "AXI_WriteData[29]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
-    Warning (15610): No output dependent on input pin "AXI_WriteData[30]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
-    Warning (15610): No output dependent on input pin "AXI_WriteData[31]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
-    Warning (15610): No output dependent on input pin "ADV_HPD" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 14
-Info (21057): Implemented 125 device resources after synthesis - the final resource count might be different
-    Info (21058): Implemented 54 input pins
-    Info (21059): Implemented 71 output pins
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 135 warnings
+Warning (21074): Design contains 55 input pin(s) that do not drive logic
+    Warning (15610): No output dependent on input pin "FPGA_CLK1_50" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 3
+    Warning (15610): No output dependent on input pin "AXI_Address[0]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
+    Warning (15610): No output dependent on input pin "AXI_Address[1]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
+    Warning (15610): No output dependent on input pin "AXI_Address[2]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
+    Warning (15610): No output dependent on input pin "AXI_Address[3]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
+    Warning (15610): No output dependent on input pin "AXI_Address[4]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
+    Warning (15610): No output dependent on input pin "AXI_Address[5]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
+    Warning (15610): No output dependent on input pin "AXI_Address[6]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
+    Warning (15610): No output dependent on input pin "AXI_Address[7]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
+    Warning (15610): No output dependent on input pin "AXI_Address[8]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
+    Warning (15610): No output dependent on input pin "AXI_Address[9]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
+    Warning (15610): No output dependent on input pin "AXI_Address[10]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
+    Warning (15610): No output dependent on input pin "AXI_Address[11]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
+    Warning (15610): No output dependent on input pin "AXI_Address[12]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
+    Warning (15610): No output dependent on input pin "AXI_Address[13]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
+    Warning (15610): No output dependent on input pin "AXI_Address[14]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
+    Warning (15610): No output dependent on input pin "AXI_Address[15]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
+    Warning (15610): No output dependent on input pin "AXI_Address[16]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
+    Warning (15610): No output dependent on input pin "AXI_Address[17]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
+    Warning (15610): No output dependent on input pin "AXI_Address[18]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 6
+    Warning (15610): No output dependent on input pin "AXI_Read" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 7
+    Warning (15610): No output dependent on input pin "AXI_Rrite" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 8
+    Warning (15610): No output dependent on input pin "AXI_WriteData[0]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
+    Warning (15610): No output dependent on input pin "AXI_WriteData[1]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
+    Warning (15610): No output dependent on input pin "AXI_WriteData[2]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
+    Warning (15610): No output dependent on input pin "AXI_WriteData[3]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
+    Warning (15610): No output dependent on input pin "AXI_WriteData[4]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
+    Warning (15610): No output dependent on input pin "AXI_WriteData[5]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
+    Warning (15610): No output dependent on input pin "AXI_WriteData[6]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
+    Warning (15610): No output dependent on input pin "AXI_WriteData[7]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
+    Warning (15610): No output dependent on input pin "AXI_WriteData[8]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
+    Warning (15610): No output dependent on input pin "AXI_WriteData[9]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
+    Warning (15610): No output dependent on input pin "AXI_WriteData[10]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
+    Warning (15610): No output dependent on input pin "AXI_WriteData[11]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
+    Warning (15610): No output dependent on input pin "AXI_WriteData[12]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
+    Warning (15610): No output dependent on input pin "AXI_WriteData[13]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
+    Warning (15610): No output dependent on input pin "AXI_WriteData[14]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
+    Warning (15610): No output dependent on input pin "AXI_WriteData[15]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
+    Warning (15610): No output dependent on input pin "AXI_WriteData[16]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
+    Warning (15610): No output dependent on input pin "AXI_WriteData[17]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
+    Warning (15610): No output dependent on input pin "AXI_WriteData[18]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
+    Warning (15610): No output dependent on input pin "AXI_WriteData[19]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
+    Warning (15610): No output dependent on input pin "AXI_WriteData[20]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
+    Warning (15610): No output dependent on input pin "AXI_WriteData[21]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
+    Warning (15610): No output dependent on input pin "AXI_WriteData[22]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
+    Warning (15610): No output dependent on input pin "AXI_WriteData[23]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
+    Warning (15610): No output dependent on input pin "AXI_WriteData[24]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
+    Warning (15610): No output dependent on input pin "AXI_WriteData[25]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
+    Warning (15610): No output dependent on input pin "AXI_WriteData[26]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
+    Warning (15610): No output dependent on input pin "AXI_WriteData[27]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
+    Warning (15610): No output dependent on input pin "AXI_WriteData[28]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
+    Warning (15610): No output dependent on input pin "AXI_WriteData[29]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
+    Warning (15610): No output dependent on input pin "AXI_WriteData[30]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
+    Warning (15610): No output dependent on input pin "AXI_WriteData[31]" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 9
+    Warning (15610): No output dependent on input pin "ADV_HPD" File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.v Line: 17
+Info (21057): Implemented 117 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 55 input pins
+    Info (21059): Implemented 62 output pins
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 128 warnings
     Info: Peak virtual memory: 431 megabytes
-    Info: Processing ended: Fri May  6 21:34:10 2022
-    Info: Elapsed time: 00:00:08
-    Info: Total CPU time (on all processors): 00:00:20
+    Info: Processing ended: Fri May  6 22:13:02 2022
+    Info: Elapsed time: 00:00:09
+    Info: Total CPU time (on all processors): 00:00:23
 
 
