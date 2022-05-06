@@ -3,13 +3,14 @@ module Project(
 	input FPGA_CLK1_50, 		// 50MHz FPGA Clock
 
 	// From AXI (HSP-FPGA Bridge, formerly Avalon)
-	input 	[18:0] 	AXI_Address, 	//
-	input 		AXI_Read, 	//
-	input  		AXI_Rrite, 	//
-	input 	[31:0]  AXI_WriteData, 	//
+	input 	[18:0] 	AXI_Address, 	// Memory Address
+	input 		AXI_Read, 	// Read Enable
+	input  		AXI_Write, 	// Write Enable
+	input 	[31:0]  AXI_WriteData, 	// AXI Data HPS -> FPGA
 
 	// To AXI (HSP-FPGA Bridge, formerly Avalon)
-	output 	[31:0] 	AXI_ReadData, 	//
+	output 		AXI_CLK, 	// AXI Clock
+	output 	[31:0] 	AXI_ReadData, 	// AXI Data FPGA -> HPS
 
 
 
