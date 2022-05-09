@@ -57,11 +57,14 @@ set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
-set_global_assignment -name VERILOG_FILE Project.v
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
 set_global_assignment -name SEARCH_PATH modules
 set_global_assignment -name SEARCH_PATH globalmodules
+set_global_assignment -name VERILOG_FILE globalmodules/DivideByPowersOfTwo.v
+set_global_assignment -name VERILOG_FILE globalmodules/DivideByPowersOfFive.v
+set_global_assignment -name VERILOG_FILE globalmodules/NBitMWideRegisterFile.v
+set_global_assignment -name VERILOG_FILE Project.v
 set_global_assignment -name VERILOG_FILE globalmodules/RegisterFile.v
 set_global_assignment -name VERILOG_FILE globalmodules/NBitRegister.v
 set_global_assignment -name VERILOG_FILE globalmodules/AddressDecoder.v
