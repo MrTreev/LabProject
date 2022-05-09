@@ -10,26 +10,27 @@ module NBitMWideRegisterFile(In_Address,In_WriteData,In_Write,In_Read,In_Reset_n
 
 	output [P_BitWidth-1:0] Out_ReadData;
 
-	parameter P_RegWidth;
-	parameter P_BitWidth;
+	parameter P_RegWidth=8;
+	parameter P_BitWidth=32;
 
 	reg [P_RegWidth-1:0] R_Select;
 
 
+	AddressDecoder #(P_BitWidth) Decoder(In_Address,In_Write,R_Select);
 
-	AddressDecoder ADecoder(
-		.addressIn(address),
-		.enable(write),
-		.decodedAddress(regSelect)
-	);
 
-	NBitRegister #(P_BitWidth,0) UCSR_i(
-	.clk(clock_50MHz), 		// Clock
-	.clear_n(reset_n), 		// Active low clear (async)
-	.d(writeData), 		 	// Data input
-	.ld(UCSRi_Id), 			// Active High Enable
-	.q(readData) 			// Data output
-	);
+	genvar m;
+	generate
+		for (m=0; m<=P_RegWidth; m=m+1) begin: GenBlock
+			NBitRegister #(P_BitWidth,0) UCR_m(
+				In_Clock_50MHz, 	// Clock
+				In_Reset_n, 		// Active low clear (async)
+				In_WriteData,           // Data input
+				R_Select[m],            // Active High Enable
+				Out_ReadData            // Data output
+			);
+		end
+	endgenerate
 
 
 endmodule

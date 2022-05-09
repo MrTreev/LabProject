@@ -1,26 +1,25 @@
-// Lectorial 5
-// Software defined UART
+// Lab Project
 // N-Bit Register
-module NBitRegister(clk,clr_n,d,ld,q);
+module NBitRegister(In_Clock,In_Reset_n,In_Data,In_Enable,Out_Data);
 	parameter WIDTH = 32;
 	parameter PRELOAD = 0;
 
-	input clk; 			// Clock
-	input clr_n; 			// Active low clear (async)
-	input [WIDTH-1:0] d; 		// Data input
-	input ld; 			// Active High Enable
+	input In_Clock; 			// Clock
+	input In_Reset_n; 			// Active low clear (async)
+	input [WIDTH-1:0] In_Data; 		// Data input
+	input In_Enable; 			// Active High Enable
 
-	output reg [WIDTH-1:0] q; 	// Data output
+	output reg [WIDTH-1:0] Out_Data; 	// Data output
 
 
-always@(posedge(clk), negedge(clr_n))
+always@(posedge(In_Clock), negedge(In_Reset_n))
 begin
-	if(!clr_n)
-		q <= PRELOAD;
+	if(!In_Reset_n)
+		Out_Data <= PRELOAD;
 	else
 	begin
-		if(ld)
-			q <= d;
+		if(In_Enable)
+			Out_Data <= In_Data;
 	end
 end
 
