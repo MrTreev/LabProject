@@ -12,8 +12,9 @@ if not os.path.exists('original.mp4'):
 
 if not os.path.exists('encoded'):
   os.mkdir('png')
-  subprocess.call(['ffmpeg', '-i', 'original.mp4', '-an', '-r', '60', '-vf', 'crop=640:480', 'png/%05d.png'])
+  subprocess.call(['ffmpeg', '-i', 'original.mp4', '-an', '-r', '25', '-vf', 'crop=640:480', 'png/%05d.png'])
 
+  print('Generating encoded files')
   os.mkdir('encoded')
   with os.scandir('png') as png_files:
     for png_file in png_files:
@@ -22,3 +23,11 @@ if not os.path.exists('encoded'):
       cv.imwrite(os.path.join('encoded', png_file.name), encoded)
 
   shutil.rmtree('png')
+
+if not os.path.exists('video.bin'):
+  print('Generated concatenated binary')
+  with open('video.bin', 'wb') as bin_file:
+    with os.scandir('encoded') as encoded_files:
+      for encoded_file in encoded_files:
+        img = cv.imread(encoded_file.path, cv.IMREAD_UNCHANGED)
+        bin_file.write(img.tobytes())
