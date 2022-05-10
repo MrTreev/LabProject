@@ -1,0 +1,4 @@
+*.bak
+
+/simulation/*
+!/simulation/*.tcl

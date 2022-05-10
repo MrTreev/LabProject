@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simPackage>
+ <file path="PLLPixelClock_sim/PLLPixelClock.vo" type="VERILOG" />
+ <topLevel name="PLLPixelClock" />
+ <deviceFamily name="cyclonev" />
+</simPackage>
