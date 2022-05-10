@@ -6,6 +6,7 @@ import os
 import shutil
 import subprocess
 import cv2 as cv
+import numpy as np
 
 if not os.path.exists('original.mp4'):
   exit(1)
@@ -20,4 +21,5 @@ if not os.path.exists('video.bin'):
     with os.scandir('png') as png_files:
       for png_file in png_files:
         img = cv.imread(png_file.path, cv.IMREAD_UNCHANGED)
-        bin_file.write(img.tobytes())
+        img_pad = np.pad(img, ((0, 0), (0, 0), (0, 1)), constant_values=255)
+        bin_file.write(img_pad.tobytes())
