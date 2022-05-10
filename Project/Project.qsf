@@ -59,7 +59,8 @@ set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_RO
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
-set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
+set_global_assignment -name SEARCH_PATH modules
+set_global_assignment -name IP_SEARCH_PATHS /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/ip_blocks
 set_global_assignment -name VERILOG_FILE modules/NBitMWideRegisterFile.v
 set_global_assignment -name VERILOG_FILE modules/AddressDecoder.v
 set_global_assignment -name VERILOG_FILE modules/NBitRegister.v
@@ -67,8 +68,6 @@ set_global_assignment -name VERILOG_FILE Project.v
 set_global_assignment -name VERILOG_FILE modules/ClockDivider.v
 set_global_assignment -name VERILOG_FILE modules/Counter.v
 set_global_assignment -name VERILOG_FILE modules/PixelCursor.v
-set_global_assignment -name SEARCH_PATH modules
-set_global_assignment -name IP_SEARCH_PATHS /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/ip_blocks
-set_global_assignment -name SOURCE_FILE ip_blocks/PLLPixelClock.cmp
 set_global_assignment -name QIP_FILE ip_blocks/PLLPixelClock.qip
-set_global_assignment -name VERILOG_FILE ip_blocks/PLLPixelClock.v
+set_global_assignment -name SOURCE_FILE ip_blocks/PLLPixelClock.cmp
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
