@@ -4,10 +4,10 @@ module NBitRegister(In_Clock,In_Reset_n,In_Data,In_Enable,Out_Data);
 	parameter WIDTH = 32;
 	parameter PRELOAD = 0;
 
-	input In_Clock; 			// Clock
-	input In_Reset_n; 			// Active low clear (async)
-	input [WIDTH-1:0] In_Data; 		// Data input
-	input In_Enable; 			// Active High Enable
+	input In_Clock; 					// Clock
+	input In_Reset_n; 					// Active low clear (async)
+	input [WIDTH-1:0] In_Data; 			// Data input
+	input In_Enable; 					// Active High Enable
 
 	output reg [WIDTH-1:0] Out_Data; 	// Data output
 
