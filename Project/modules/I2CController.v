@@ -1,43 +1,52 @@
-module I2CController (Data, Enable, Clock, Reset_n, SDA, SCL);
+module I2CController (Data, Enable, Clock, Reset_n, Ack, SDA, SCL);
 
 input [7:0] Data;
 input Enable;
 input Clock;
 input Reset_n;
 
-output reg SDA = 1;
-output reg SCL = 1;
+output Ack; // Indicate one byte transfer has completed, upstream should update Data and Enable
+
+inout SDA;
+output SCL;
 
 localparam STATE_IDLE 		= 0;
 localparam STATE_START_0 	= 1;
 localparam STATE_START_1 	= 2;
-localparam STATE_BIT7_0 	= 3;
-localparam STATE_BIT7_1 	= 4;
-localparam STATE_BIT7_2 	= 5;
-localparam STATE_BIT6_0 	= 6;
-localparam STATE_BIT6_1 	= 7;
-localparam STATE_BIT6_2 	= 8;
-localparam STATE_BIT5_0 	= 9;
-localparam STATE_BIT5_1 	= 10;
-localparam STATE_BIT5_2 	= 11;
-localparam STATE_BIT4_0 	= 12;
-localparam STATE_BIT4_1 	= 13;
-localparam STATE_BIT4_2 	= 14;
-localparam STATE_BIT3_0 	= 15;
-localparam STATE_BIT3_1 	= 16;
-localparam STATE_BIT3_2 	= 17;
-localparam STATE_BIT2_0 	= 18;
-localparam STATE_BIT2_1 	= 19;
-localparam STATE_BIT1_0 	= 20;
-localparam STATE_BIT1_1 	= 21;
-localparam STATE_BIT1_2 	= 22;
-localparam STATE_BIT0_0 	= 23;
-localparam STATE_BIT0_1 	= 24;
-localparam STATE_BIT0_2 	= 25;
-localparam STATE_ACK_0 		= 26;
-localparam STATE_ACK_1 		= 27;
+localparam STATE_START_2 	= 3;
+localparam STATE_BIT7_0 	= 4;
+localparam STATE_BIT7_1 	= 5;
+localparam STATE_BIT7_2 	= 6;
+localparam STATE_BIT6_0 	= 7;
+localparam STATE_BIT6_1 	= 8;
+localparam STATE_BIT6_2 	= 9;
+localparam STATE_BIT5_0 	= 10;
+localparam STATE_BIT5_1 	= 11;
+localparam STATE_BIT5_2 	= 12;
+localparam STATE_BIT4_0 	= 13;
+localparam STATE_BIT4_1 	= 14;
+localparam STATE_BIT4_2 	= 15;
+localparam STATE_BIT3_0 	= 16;
+localparam STATE_BIT3_1 	= 17;
+localparam STATE_BIT3_2 	= 18;
+localparam STATE_BIT2_0 	= 19;
+localparam STATE_BIT2_1 	= 20;
+localparam STATE_BIT2_2 	= 21;
+localparam STATE_BIT1_0 	= 22;
+localparam STATE_BIT1_1 	= 23;
+localparam STATE_BIT1_2 	= 24;
+localparam STATE_BIT0_0 	= 25;
+localparam STATE_BIT0_1 	= 26;
+localparam STATE_BIT0_2 	= 27;
+localparam STATE_ACK_0 		= 28;
+localparam STATE_ACK_1 		= 29;
+localparam STATE_ACK_2 		= 30;
+localparam STATE_REPEAT_0 	= 31;
+localparam STATE_STOP_0 	= 32;
+localparam STATE_STOP_1 	= 33;
+localparam STATE_STOP_2 	= 34;
 
-reg [3:0] state = STATE_IDLE;
+reg [5:0] state = STATE_IDLE;
 
 always @(posedge(Clock), negedge(Reset_n))
 begin
@@ -45,42 +54,206 @@ begin
 		state <= STATE_IDLE;
 	else begin
 		case (state)
+			STATE_IDLE:
+				state <= Enable ? STATE_START_0 : STATE_IDLE;
+			STATE_ACK_2:
+				state <= Enable ? STATE_REPEAT_0 : STATE_STOP_0;
+			STATE_REPEAT_0:
+				state <= STATE_START_0;
+			STATE_STOP_2:
+				state <= STATE_IDLE;
 			default:
 				state <= state + 1;
 		endcase
 	end
 end
 
+reg sdar = 1; // register for SDA output
+reg sda_en = 0; // if SDA should output or be high-Z
+reg sclr = 1; // rergister for SCL
+assign SDA = sda_en ? sdar : 1'bz; // tristate SDA
+assign SCL = sclr;
+assign Ack = state == STATE_ACK_1;
+
 always @(state)
 begin
 	case (state)
 		STATE_IDLE: begin
-			SDA <= 1;
-			SCL <= 1;
+			sdar <= 1;
+			sda_en <= 1;
+			sclr <= 1;
 		end
 		STATE_START_0: begin
-			SDA <= 0;
-			SCL <= 1;
+			sdar <= 1;
+			sda_en <= 1;
+			sclr <= 1;
 		end
 		STATE_START_1: begin
-			SDA <= 0;
-			SCL <= 0;
+			sdar <= 0;
+			sda_en <= 1;
+			sclr <= 1;
+		end
+		STATE_START_2: begin
+			sdar <= 0;
+			sda_en <= 1;
+			sclr <= 0;
 		end
 		STATE_BIT7_0: begin
-			SDA <= Data[7];
-			SCL <= 0;
+			sdar <= Data[7];
+			sda_en <= 1;
+			sclr <= 0;
 		end
 		STATE_BIT7_1: begin
-			SDA <= Data[7];
-			SCL <= 1;
+			sdar <= Data[7];
+			sda_en <= 1;
+			sclr <= 1;
 		end
 		STATE_BIT7_2: begin
-			SDA <= Data[7];
-			SCL <= 0;
+			sdar <= Data[7];
+			sda_en <= 1;
+			sclr <= 0;
 		end
 		STATE_BIT6_0: begin
-			SDA <= Data[6];
-			SCL <= 0;
+			sdar <= Data[6];
+			sda_en <= 1;
+			sclr <= 0;
+		end
+		STATE_BIT6_1: begin
+			sdar <= Data[6];
+			sda_en <= 1;
+			sclr <= 1;
+		end
+		STATE_BIT6_2: begin
+			sdar <= Data[6];
+			sda_en <= 1;
+			sclr <= 0;
+		end
+		STATE_BIT5_0: begin
+			sdar <= Data[5];
+			sda_en <= 1;
+			sclr <= 0;
+		end
+		STATE_BIT5_1: begin
+			sdar <= Data[5];
+			sda_en <= 1;
+			sclr <= 1;
+		end
+		STATE_BIT5_2: begin
+			sdar <= Data[5];
+			sda_en <= 1;
+			sclr <= 0;
+		end
+		STATE_BIT4_0: begin
+			sdar <= Data[4];
+			sda_en <= 1;
+			sclr <= 0;
+		end
+		STATE_BIT4_1: begin
+			sdar <= Data[4];
+			sda_en <= 1;
+			sclr <= 1;
+		end
+		STATE_BIT4_2: begin
+			sdar <= Data[4];
+			sda_en <= 1;
+			sclr <= 0;
+		end
+		STATE_BIT3_0: begin
+			sdar <= Data[3];
+			sda_en <= 1;
+			sclr <= 0;
+		end
+		STATE_BIT3_1: begin
+			sdar <= Data[3];
+			sda_en <= 1;
+			sclr <= 1;
+		end
+		STATE_BIT3_2: begin
+			sdar <= Data[3];
+			sda_en <= 1;
+			sclr <= 0;
+		end
+		STATE_BIT2_0: begin
+			sdar <= Data[2];
+			sda_en <= 1;
+			sclr <= 0;
+		end
+		STATE_BIT2_1: begin
+			sdar <= Data[2];
+			sda_en <= 1;
+			sclr <= 1;
+		end
+		STATE_BIT2_2: begin
+			sdar <= Data[2];
+			sda_en <= 1;
+			sclr <= 0;
+		end
+		STATE_BIT1_0: begin
+			sdar <= Data[1];
+			sda_en <= 1;
+			sclr <= 0;
+		end
+		STATE_BIT1_1: begin
+			sdar <= Data[1];
+			sda_en <= 1;
+			sclr <= 1;
+		end
+		STATE_BIT1_2: begin
+			sdar <= Data[1];
+			sda_en <= 1;
+			sclr <= 0;
+		end
+		STATE_BIT0_0: begin
+			sdar <= Data[0];
+			sda_en <= 1;
+			sclr <= 0;
+		end
+		STATE_BIT0_1: begin
+			sdar <= Data[0];
+			sda_en <= 1;
+			sclr <= 1;
+		end
+		STATE_BIT0_2: begin
+			sdar <= Data[0];
+			sda_en <= 1;
+			sclr <= 0;
+		end
+		STATE_ACK_0: begin
+			sdar <= 0;
+			sda_en <= 0;
+			sclr <= 0;
+		end
+		STATE_ACK_1: begin
+			sdar <= 0;
+			sda_en <= 0;
+			sclr <= 1;
+		end
+		STATE_ACK_2: begin
+			sdar <= 0;
+			sda_en <= 0;
+			sclr <= 0;
+		end
+		STATE_REPEAT_0: begin
+			sdar <= 1;
+			sda_en <= 1;
+			sclr <= 0;
+		end
+		STATE_STOP_0: begin
+			sdar <= 0;
+			sda_en <= 1;
+			sclr <= 0;
+		end
+		STATE_STOP_1: begin
+			sdar <= 0;
+			sda_en <= 1;
+			sclr <= 1;
+		end
+		STATE_STOP_2: begin
+			sdar <= 1;
+			sda_en <= 1;
+			sclr <= 1;
 		end
 	endcase
 end
+
+endmodule
