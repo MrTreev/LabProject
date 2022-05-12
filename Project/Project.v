@@ -39,13 +39,13 @@ assign ADV_Hsync = ~hsync;
 assign ADV_Vsync = ~vsync;
 
 PixelCursor pixel_cursor (
-	.pix_clk(pix_clk),
-	.reset_n(RST_N),
-	.hcount(),
-	.vcount(),
-	.active(ADV_DE),
-	.hsync(hsync),
-	.vsync(vsync)
+	pix_clk,
+	RST_N,
+	,
+	,
+	ADV_DE,
+	hsync,
+	vsync
 );
 
 assign ADV_D = ADV_DE ? 24'h00ff00 : 0;

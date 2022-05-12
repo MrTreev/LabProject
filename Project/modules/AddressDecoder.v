@@ -1,12 +1,13 @@
 // Lab Project
 // Address Decoder
-module AddressDecoder(In_Address,In_Enable,Out_DecodedAddress);
-	input [P_RegWidth-1:0] In_Address;
-	input In_Enable;
+module AddressDecoder(
+	input [$clog2(P_RegCount)-1:0] In_Address,
+	input In_Enable,
 
-	output reg [(2**P_RegWidth)-1:0] Out_DecodedAddress;
+	output reg [P_RegCount-1:0] Out_DecodedAddress
+);
 
-	parameter P_RegWidth=3;										// Width of address space for addressing registers
+	parameter P_RegCount=8;										// Number of registers
 
 
 always @(In_Address, In_Enable)

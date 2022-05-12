@@ -1,20 +1,20 @@
 // Lab Project
 // N-Bit M-Wide Register File
 module NBitMWideRegisterFile
-	#(P_RegCount,P_BitWidth)
-	(In_Address,In_WriteData,In_Write,In_Read,In_Reset_n,In_Clock,Out_ReadData);
+	#(
+	parameter P_RegCount=3, 			// Number of registers
+	parameter P_BitWidth=32 			// Bit Width for each register
+	)
+	(
+	input [$clog2(P_RegCount)-1:0] In_Address,
+	input [P_BitWidth-1:0] In_WriteData,
+	input In_Write,
+	input In_Read,
+	input In_Reset_n,
+	input In_Clock,
 
-	parameter P_RegCount=3; 			// Number of registers
-	parameter P_BitWidth=32; 			// Bit Width for each register
-
-	input [$clog2(P_RegCount)-1:0] In_Address;
-	input [P_BitWidth-1:0] In_WriteData;
-	input In_Write;
-	input In_Read;
-	input In_Reset_n;
-	input In_Clock;
-
-	output [P_BitWidth-1:0] Out_ReadData;
+	output [P_BitWidth-1:0] Out_ReadData
+	);
 
 	reg [$clog2(P_RegCount)-1:0] R_Select;
 
