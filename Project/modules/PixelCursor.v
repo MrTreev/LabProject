@@ -15,15 +15,15 @@
 //   Active Pixels: 480
 //   Total Pixels: 525
 
-module PixelCursor (
-	input pix_clk, // 25.2 MHz
-	input reset_n,
-	output [9:0] hcount,
-	output [9:0] vcount,
-	output active,
-	output hsync,
-	output vsync
-);
+module PixelCursor (pix_clk,reset_n,hcount,vcount,active,hsync,vsync);
+	input pix_clk; // 25.2 MHz
+	input reset_n;
+	output [9:0] hcount;
+	output [9:0] vcount;
+	output active;
+	output hsync;
+	output vsync;
+
 
 Counter #(800) hcounter (.clk(pix_clk), .reset_n(reset_n), .value(hcount));
 Counter #(525) vcounter (.clk(hcount == 0), .reset_n(reset_n), .value(vcount));

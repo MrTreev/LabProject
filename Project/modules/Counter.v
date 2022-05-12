@@ -1,10 +1,12 @@
-module Counter #(
-	parameter MAX_COUNT
-) (
-	input clk,
-	input reset_n,
-	output reg [$clog2(MAX_COUNT)-1:0] value = 0
-);
+module Counter
+	#(MAX_COUNT)
+	(clk,reset_n,value);
+	parameter MAX_COUNT;
+
+	input clk;
+	input reset_n;
+	output reg [$clog2(MAX_COUNT)-1:0] value = 0;
+
 
 always @(posedge(clk), negedge(reset_n))
 begin
