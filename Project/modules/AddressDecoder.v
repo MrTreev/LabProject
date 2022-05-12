@@ -6,7 +6,7 @@ module AddressDecoder(In_Address,In_Enable,Out_DecodedAddress);
 
 	output reg [(2**P_RegWidth)-1:0] Out_DecodedAddress;
 
-	parameter P_RegWidth=3; 		// Width of address space for addressing registers
+	parameter P_RegWidth=3;										// Width of address space for addressing registers
 
 
 always @(In_Address, In_Enable)
