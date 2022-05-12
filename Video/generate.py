@@ -18,8 +18,7 @@ if not os.path.exists('png'):
 if not os.path.exists('video.bin'):
   print('Generating concatenated binary')
   with open('video.bin', 'wb') as bin_file:
-    with os.scandir('png') as png_files:
-      for png_file in png_files:
-        img = cv.imread(png_file.path, cv.IMREAD_UNCHANGED)
-        img_pad = np.pad(img, ((0, 0), (0, 0), (0, 1)), constant_values=255)
-        bin_file.write(img_pad.tobytes())
+    for png_file in sorted(os.listdir('png')):
+      img = cv.imread(os.path.join('png', png_file), cv.IMREAD_UNCHANGED)
+      img_pad = np.pad(img, ((0, 0), (0, 0), (0, 1)), constant_values=255)
+      bin_file.write(img_pad.tobytes())
