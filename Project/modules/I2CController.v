@@ -1,14 +1,21 @@
-module I2CController (Data, Enable, Clock, Reset_n, Ack, SDA, SCL);
+module I2CController (
+	input [7:0] Data,
+	input [1:0] Op,
+	input Clock,
+	input Reset_n,
 
-input [7:0] Data;
-input Enable;
-input Clock;
-input Reset_n;
+	// Indicate one byte transfer has completed, upstream should update Data and Op
+	// Op and Data are only expected to update when state is IDLE or when Completed rises
+	output Completed,
 
-output Ack; // Indicate one byte transfer has completed, upstream should update Data and Enable
+	inout SDA,
+	output SCL
+);
 
-inout SDA;
-output SCL;
+localparam OP_STOP = 0;		// Stop indefinately
+localparam OP_START = 1;	// Send start or repeat start signal
+localparam OP_CONTINUE = 2;	// Continue sending data
+localparam OP_RESTART = 3;	// Stop the transaction and start a new one
 
 localparam STATE_IDLE 		= 0;
 localparam STATE_START_0 	= 1;
@@ -55,13 +62,20 @@ begin
 	else begin
 		case (state)
 			STATE_IDLE:
-				state <= Enable ? STATE_START_0 : STATE_IDLE;
+				state <= Op == OP_START ? STATE_START_0 : STATE_IDLE;
 			STATE_ACK_2:
-				state <= Enable ? STATE_REPEAT_0 : STATE_STOP_0;
+				case (Op)
+					OP_START:
+						state <= STATE_REPEAT_0;
+					OP_CONTINUE:
+						state <= STATE_BIT7_0;
+					default:
+						state <= STATE_STOP_0;
+				endcase
 			STATE_REPEAT_0:
 				state <= STATE_START_0;
 			STATE_STOP_2:
-				state <= STATE_IDLE;
+				state <= Op == OP_RESTART ? STATE_START_0 : STATE_IDLE;
 			default:
 				state <= state + 1;
 		endcase
@@ -73,7 +87,7 @@ reg sda_en = 0; // if SDA should output or be high-Z
 reg sclr = 1; // rergister for SCL
 assign SDA = sda_en ? sdar : 1'bz; // tristate SDA
 assign SCL = sclr;
-assign Ack = state == STATE_ACK_1;
+assign Completed = state == STATE_ACK_1;
 
 always @(state)
 begin
