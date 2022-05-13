@@ -1,5 +1,5 @@
 module Counter
-	#(MAX_COUNT)
+	#(parameter MAX_COUNT)
 	(clk,reset_n,value);
 
 	input clk;
