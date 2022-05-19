@@ -267,6 +267,11 @@ begin
 			sda_en <= 1;
 			sclr <= 1;
 		end
+		default: begin
+			sdar <= 1;
+			sda_en <= 1;
+			sclr <= 1;
+		end
 	endcase
 end
 
