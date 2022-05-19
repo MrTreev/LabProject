@@ -80,6 +80,7 @@ int main(int argc, char** argv) {
   sigset_t sigset_alarm;
   sigemptyset(&sigset_alarm);
   sigaddset(&sigset_alarm, SIGALRM);
+  sigprocmask(SIG_BLOCK, &sigset_alarm, NULL);
   ualarm(40000, 40000);
   
   // Main loop
@@ -97,8 +98,7 @@ int main(int argc, char** argv) {
     }
 
     // Wait for time for next frame
-    int sig_recvd = 0;
-    sigwait(&sigset_alarm, &sig_recvd);
+    sigwaitinfo(&sigset_alarm, NULL);
 
     printf("Displaying a frame\n");
     //memcpy(fb_front, fb_back, FB_WIDTH * FB_HEIGHT);
