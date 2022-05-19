@@ -10,11 +10,11 @@
 #include <sys/mman.h>
 #include <sys/time.h>
 
-#define FB_WIDTH 640
-#define FB_HEIGHT 480
+#define FB_WIDTH 160
+#define FB_HEIGHT 120
 
-#define FPGA_ADDR_BASE 0x40000000 // TODO
-#define FB_ADDR_OFFSET 0x100 // TODO
+#define FPGA_ADDR_BASE 0x3F000000 // TODO
+#define FB_ADDR_OFFSET 0x0 // TODO
 
 // TODO
 enum hdmi_i2c_reg {
@@ -25,10 +25,12 @@ enum hdmi_i2c_reg {
 int main(int argc, char** argv) {
   (void) argc;
   (void) argv;
+  
+  printf("Initializing...\n");
 
   char* video_file_name = NULL;
 
-  char optc;
+  int optc;
   while ((optc = getopt(argc, argv, "d:")) != -1) {
     switch (optc) {
       case 'd':
@@ -43,7 +45,7 @@ int main(int argc, char** argv) {
   }
 
   if (video_file_name == NULL) {
-    fprintf(stderr, "Video file name unspecified");
+    fprintf(stderr, "Video file name unspecified\n");
     exit(1);
   }
 
@@ -55,12 +57,12 @@ int main(int argc, char** argv) {
   }
 
   // Map memory from AXI
-  int mem = open("/dev/mem", O_WRONLY | O_SYNC);
+  int mem = open("/dev/mem", O_RDWR | O_SYNC);
   if (mem == -1) {
     fprintf(stderr, "open: %s\n", strerror(errno));
     exit(-1);
   }
-  uint8_t* fpga_shmem = mmap(NULL, FB_WIDTH * FB_HEIGHT, PROT_WRITE, MAP_SHARED, mem, FPGA_ADDR_BASE);
+  uint8_t* fpga_shmem = mmap(NULL, FB_WIDTH * FB_HEIGHT, PROT_READ | PROT_WRITE, MAP_SHARED, mem, FPGA_ADDR_BASE);
   if (fpga_shmem == MAP_FAILED) {
     fprintf(stderr, "mmap: %s\n", strerror(errno));
     exit(-1);
@@ -98,6 +100,7 @@ int main(int argc, char** argv) {
     int sig_recvd = 0;
     sigwait(&sigset_alarm, &sig_recvd);
 
-    memcpy(fb_front, fb_back, FB_WIDTH * FB_HEIGHT);
+    printf("Displaying a frame\n");
+    //memcpy(fb_front, fb_back, FB_WIDTH * FB_HEIGHT);
   }
 }
