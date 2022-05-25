@@ -27,7 +27,7 @@ module PixelCursor (
 
 
 Counter #(800) hcounter (.clk(pix_clk), .reset_n(reset_n), .value(hcount));
-Counter #(525) vcounter (.clk(hcount == 0), .reset_n(reset_n), .value(vcount));
+Counter #(525) vcounter (.clk(hcount < 400), .reset_n(reset_n), .value(vcount));
 
 assign active = hcount < 640 && vcount < 480;
 assign hsync = hcount >= 688 && hcount < 784;

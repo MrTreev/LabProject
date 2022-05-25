@@ -2,3 +2,5 @@
 
 /simulation/*
 !/simulation/*.tcl
+
+/.qsys_edit/

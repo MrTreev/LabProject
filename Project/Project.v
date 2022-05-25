@@ -26,12 +26,18 @@ module Project(
 	output			ADV_Vsync,			// ADV Vertical Sync
 	inout			ADV_SDA,			// ADV Serial Port Data
 	output			ADV_SCL,			// ADV Serial Port Data Clock
+	
+	// GPIO for debugging
+	output [35:0] GPIO_0,
+	output [35:0] GPIO_1,
 
 	input RST_N
 );
 
 wire pix_clk;
-PLLPixelClock pll_pixel_clock (.refclk(FPGA_CLK1_50), .rst(RST_N), .outclk_0(ADV_CLK), .outclk_1(pix_clk));
+//PLLPixelClock pll_pixel_clock (.refclk(FPGA_CLK1_50), .rst(~RST_N), .outclk_0(ADV_CLK), .outclk_1(pix_clk));
+ClockDivider #(2) div_pix_clk (.clk_in(FPGA_CLK1_50), .reset_n(RST_N), .clk_out(pix_clk));
+ClockDivider #(2) div_adv_clk (.clk_in(~FPGA_CLK1_50), .reset_n(RST_N), .clk_out(ADV_CLK));
 // ADC_CLK leads pix_clk by 90 degrees
 
 wire i2c_clk;
@@ -61,5 +67,8 @@ I2CSubsystem i2c (
 	.SDA(ADV_SDA),
 	.SCL(ADV_SCL)
 );
+
+assign GPIO_1 = {27'b0, pix_clk, ADV_SDA, ADV_SCL, ADV_Vsync, ADV_Hsync, ADV_DE, ADV_CLK, 2'b0};
+assign GPIO_0 = 36'b0;
 
 endmodule
