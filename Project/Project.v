@@ -5,21 +5,19 @@ module Project(
 	// Clocks
 	input FPGA_CLK1_50,					// 50MHz FPGA Clock
 
-	// From Avalon (HSP-FPGA Bridge, formerly Avalon)
-	input 	[18:0] 	Avalon_Address, 	// Memory Address
-	input			Avalon_Read, 		// Read Enable
-	input			Avalon_Write, 		// Write Enable
-	input	[31:0]  Avalon_WriteData, 	// Avalon Data HPS -> FPGA
-
-	// To Avalon (HSP-FPGA Bridge, formerly Avalon)
-	output			Avalon_CLK, 		// Avalon Clock
-	output 	[31:0] 	Avalon_ReadData, 	// Avalon Data FPGA -> HPS
+//// From Avalon (HSP-FPGA Bridge, formerly Avalon)
+//input 	[18:0] 	Avalon_Address, 	// Memory Address
+//input			Avalon_Read, 		// Read Enable
+//input			Avalon_Write, 		// Write Enable
+//input	[31:0]  Avalon_WriteData, 	// Avalon Data HPS -> FPGA
+//
+//// To Avalon (HSP-FPGA Bridge, formerly Avalon)
+//output			Avalon_CLK, 		// Avalon Clock
+//output 	[31:0] 	Avalon_ReadData, 	// Avalon Data FPGA -> HPS
 
 
 
 	// From ADV7513
-	input 		ADV_HPD,				// ADV HDMI Hot Plug Detect
-
 	// To ADV7513
 	output			ADV_DE,				// ADV Data Enable
 	output			ADV_CLK,			// ADV Video Clock
