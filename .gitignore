@@ -1,3 +1,8 @@
 Project/db/*
 Project/incremental_db/*
 Project/output_files/*
+Project/simulation/work/*
+Project/modelsim
+Project/modelsim.bck
+Project/transcript
+Project/vsim.wlf

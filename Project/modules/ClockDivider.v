@@ -1,6 +1,7 @@
 module ClockDivider #(
 	parameter DIVISION
-) (
+)
+(
 	input clk_in,
 	input reset_n,
 	output clk_out

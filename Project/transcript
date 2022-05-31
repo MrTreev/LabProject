@@ -1,0 +1,195 @@
+# Project file /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.mpf was not found.
+# Unable to open project.
+# Loading project Project
+# Compile of AddressDecoder.v was successful.
+# Compile of ClockDivider.v was successful.
+# Compile of Counter.v was successful.
+# Compile of I2CController.v was successful.
+# Compile of I2CDataFeed.v was successful.
+# Compile of I2CSubsystem.v was successful.
+# Compile of NBitMWideRegisterFile.v was successful.
+# Compile of NBitRegister.v was successful.
+# Compile of PixelCursor.v was successful.
+# 9 compiles, 0 failed with no errors.
+# Compile of AddressDecoder.v was successful.
+# Compile of ClockDivider.v was successful.
+# Compile of Counter.v was successful.
+# Compile of I2CController.v was successful.
+# Compile of I2CDataFeed.v was successful.
+# Compile of I2CSubsystem.v was successful.
+# Compile of NBitMWideRegisterFile.v was successful.
+# Compile of NBitRegister.v was successful.
+# Compile of PixelCursor.v was successful.
+# 9 compiles, 0 failed with no errors.
+# Compile of AddressDecoder.v was successful.
+# Compile of ClockDivider.v was successful.
+# Compile of Counter.v was successful.
+# Compile of I2CController.v was successful.
+# Compile of I2CDataFeed.v was successful.
+# Compile of I2CSubsystem.v was successful.
+# Compile of NBitMWideRegisterFile.v was successful.
+# Compile of NBitRegister.v was successful.
+# Compile of PixelCursor.v was successful.
+# Compile of Project.v was successful.
+# 10 compiles, 0 failed with no errors.
+# Load canceled
+# Load canceled
+# Compile of AddressDecoder.v was successful.
+# Compile of ClockDivider.v was successful.
+# Compile of Counter.v was successful.
+# Compile of I2CController.v was successful.
+# Compile of I2CDataFeed.v was successful.
+# Compile of I2CSubsystem.v was successful.
+# Compile of NBitMWideRegisterFile.v was successful.
+# Compile of NBitRegister.v was successful.
+# Compile of PixelCursor.v was successful.
+# Compile of Project.v was successful.
+# 10 compiles, 0 failed with no errors.
+vmap work /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/simulation/work
+# Model Technology ModelSim - Intel FPGA Edition vmap 2020.1 Lib Mapping Utility 2020.02 Feb 28 2020
+# vmap work /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/simulation/work 
+# Modifying /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/Project.mpf
+# Compile of AddressDecoder.v was successful.
+# Compile of ClockDivider.v was successful.
+# Compile of Counter.v was successful.
+# Compile of I2CController.v was successful.
+# Compile of I2CDataFeed.v was successful.
+# Compile of I2CSubsystem.v was successful.
+# Compile of NBitMWideRegisterFile.v was successful.
+# Compile of NBitRegister.v was successful.
+# Compile of PixelCursor.v was successful.
+# Compile of Project.v was successful.
+# 10 compiles, 0 failed with no errors.
+vsim work.Project
+# vsim work.Project 
+# Start time: 13:48:46 on May 31,2022
+# Loading work.Project
+# Loading work.ClockDivider
+# Loading work.Counter
+# Loading work.PixelCursor
+# Loading work.I2CSubsystem
+# Loading work.I2CController
+# Loading work.I2CDataFeed
+source simulation/MasterSim.tcl
+# wrong # args: should be "proc name args body"
+source simulation/MasterSim.tcl
+# wrong # args: should be "proc name args body"
+source simulation/MasterSim.tcl
+# wrong # args: should be "proc name args body"
+source simulation/MasterSim.tcl
+# wrong # args: should be "proc name args body"
+source simulation/MasterSim.tcl
+# wrong # args: should be "proc name args body"
+source simulation/MasterSim.tcl
+# wrong # args: should be "proc name args body"
+source simulation/MasterSim.tcl
+simI2CController 
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** UI-Msg: (vish-4014) No objects found matching 'Data'.
+vsim work.I2CController
+# End time: 14:38:29 on May 31,2022, Elapsed time: 0:49:43
+# Errors: 0, Warnings: 1
+# vsim work.I2CController 
+# Start time: 14:38:29 on May 31,2022
+# Loading work.I2CController
+simI2CController
+vsim work.ClockDivider
+# End time: 14:38:53 on May 31,2022, Elapsed time: 0:00:24
+# Errors: 0, Warnings: 1
+# vsim work.ClockDivider 
+# Start time: 14:38:53 on May 31,2022
+# Loading work.ClockDivider
+# Loading work.Counter
+# ** Error: (vsim-7039) The parameter 'DIVISION' has not been given a value.
+#    Time: 0 ps  Iteration: 0  Instance: /ClockDivider File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/modules/ClockDivider.v Line: 2
+# Error loading design
+# End time: 14:38:53 on May 31,2022, Elapsed time: 0:00:00
+# Errors: 1, Warnings: 1
+vsim work.ClockDivider
+# vsim work.ClockDivider 
+# Start time: 14:38:57 on May 31,2022
+# Loading work.ClockDivider
+# Loading work.Counter
+# ** Error: (vsim-7039) The parameter 'DIVISION' has not been given a value.
+#    Time: 0 ps  Iteration: 0  Instance: /ClockDivider File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/modules/ClockDivider.v Line: 2
+# Error loading design
+# End time: 14:38:57 on May 31,2022, Elapsed time: 0:00:00
+# Errors: 1, Warnings: 1
+# Compile of AddressDecoder.v was successful.
+# Compile of ClockDivider.v was successful.
+# Compile of Counter.v was successful.
+# Compile of I2CController.v was successful.
+# Compile of I2CDataFeed.v was successful.
+# Compile of I2CSubsystem.v was successful.
+# Compile of NBitMWideRegisterFile.v was successful.
+# Compile of NBitRegister.v was successful.
+# Compile of PixelCursor.v was successful.
+# Compile of Project.v was successful.
+# 10 compiles, 0 failed with no errors.
+vsim work.Project
+# vsim work.Project 
+# Start time: 15:38:59 on May 31,2022
+# Loading work.Project
+# Loading work.ClockDivider
+# Loading work.Counter
+# Loading work.PixelCursor
+# Loading work.I2CSubsystem
+# Loading work.I2CController
+# Loading work.I2CDataFeed
+source simulation/MasterSim.tcl
+simClockDivider 5000
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** UI-Msg (suppressible): (vsim-4008) Object 'DIVISION' not found.
+# 
+source simulation/MasterSim.tcl
+simClockDivider 5000
+# invalid command name "set_param"
+vsim -g/top/DIVISION = 5000 top
+# End time: 15:45:42 on May 31,2022, Elapsed time: 0:06:43
+# Errors: 0, Warnings: 1
+# ** Error: (vsim-3281) Invalid command line generic assignment "-g=-g/top/DIVISION".
+# Use the -help option for complete vsim usage.
+# vsim = 5000 top -g=-g/top/DIVISION 
+# Error loading design
+# Errors: 1, Warnings: 1
+vsim -g/ClockDivider/DIVISION = 5000 top
+# ** Error: (vsim-3281) Invalid command line generic assignment "-g=-g/ClockDivider/DIVISION".
+# Use the -help option for complete vsim usage.
+# vsim = 5000 top -g=-g/ClockDivider/DIVISION 
+# Error loading design
+# Errors: 1, Warnings: 1
+vsim -g/ClockDivider/DIVISION = 5000 modules/ClockDivider.v
+# ** Error: (vsim-3281) Invalid command line generic assignment "-g=-g/ClockDivider/DIVISION".
+# Use the -help option for complete vsim usage.
+# vsim = 5000 -g=-g/ClockDivider/DIVISION 
+# Error loading design
+# Errors: 1, Warnings: 1
+vsim -g/modules/ClockDivider/DIVISION = 5000 modules/ClockDivider.v
+# ** Error: (vsim-3281) Invalid command line generic assignment "-g=-g/modules/ClockDivider/DIVISION".
+# Use the -help option for complete vsim usage.
+# vsim = 5000 -g=-g/modules/ClockDivider/DIVISION 
+# Error loading design
+# Errors: 1, Warnings: 1
+vsim work.ClockDivider
+# vsim work.ClockDivider 
+# Start time: 15:52:46 on May 31,2022
+# Loading work.ClockDivider
+# Loading work.Counter
+# ** Error: (vsim-7039) The parameter 'DIVISION' has not been given a value.
+#    Time: 0 ps  Iteration: 0  Instance: /ClockDivider File: /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/modules/ClockDivider.v Line: 2
+# Error loading design
+# End time: 15:52:47 on May 31,2022, Elapsed time: 0:00:01
+# Errors: 1, Warnings: 1
+vsim work.ClockDivider -gDIVISION=5000
+# vsim work.ClockDivider -gDIVISION=5000 
+# Start time: 15:53:43 on May 31,2022
+# Loading work.ClockDivider
+# Loading work.Counter
+source simulation/MasterSim.tcl
+simClockDivider
+# wrong # args: should be "simClockDivider div"
+simClockDivider 5000
+simClockDivider
+# wrong # args: should be "simClockDivider div"
+source simulation/MasterSim.tcl
+simClockDivider 5000

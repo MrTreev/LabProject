@@ -12,46 +12,46 @@ module I2CController (
 	output SCL
 );
 
-localparam OP_STOP = 0;		// Stop indefinately
-localparam OP_START = 1;	// Send start or repeat start signal
-localparam OP_CONTINUE = 2;	// Continue sending data
-localparam OP_RESTART = 3;	// Stop the transaction and start a new one
+localparam OP_STOP			= 2'd0;	// Stop indefinately
+localparam OP_START			= 2'd1;	// Send start or repeat start signal
+localparam OP_CONTINUE		= 2'd2;	// Continue sending data
+localparam OP_RESTART		= 2'd3;	// Stop the transaction and start a new one
 
-localparam STATE_IDLE 		= 0;
-localparam STATE_START_0 	= 1;
-localparam STATE_START_1 	= 2;
-localparam STATE_START_2 	= 3;
-localparam STATE_BIT7_0 	= 4;
-localparam STATE_BIT7_1 	= 5;
-localparam STATE_BIT7_2 	= 6;
-localparam STATE_BIT6_0 	= 7;
-localparam STATE_BIT6_1 	= 8;
-localparam STATE_BIT6_2 	= 9;
-localparam STATE_BIT5_0 	= 10;
-localparam STATE_BIT5_1 	= 11;
-localparam STATE_BIT5_2 	= 12;
-localparam STATE_BIT4_0 	= 13;
-localparam STATE_BIT4_1 	= 14;
-localparam STATE_BIT4_2 	= 15;
-localparam STATE_BIT3_0 	= 16;
-localparam STATE_BIT3_1 	= 17;
-localparam STATE_BIT3_2 	= 18;
-localparam STATE_BIT2_0 	= 19;
-localparam STATE_BIT2_1 	= 20;
-localparam STATE_BIT2_2 	= 21;
-localparam STATE_BIT1_0 	= 22;
-localparam STATE_BIT1_1 	= 23;
-localparam STATE_BIT1_2 	= 24;
-localparam STATE_BIT0_0 	= 25;
-localparam STATE_BIT0_1 	= 26;
-localparam STATE_BIT0_2 	= 27;
-localparam STATE_ACK_0 		= 28;
-localparam STATE_ACK_1 		= 29;
-localparam STATE_ACK_2 		= 30;
-localparam STATE_REPEAT_0 	= 31;
-localparam STATE_STOP_0 	= 32;
-localparam STATE_STOP_1 	= 33;
-localparam STATE_STOP_2 	= 34;
+localparam STATE_IDLE 		= 6'd00;
+localparam STATE_START_0 	= 6'd01;
+localparam STATE_START_1 	= 6'd02;
+localparam STATE_START_2 	= 6'd03;
+localparam STATE_BIT7_0 	= 6'd04;
+localparam STATE_BIT7_1 	= 6'd05;
+localparam STATE_BIT7_2 	= 6'd06;
+localparam STATE_BIT6_0 	= 6'd07;
+localparam STATE_BIT6_1 	= 6'd08;
+localparam STATE_BIT6_2 	= 6'd09;
+localparam STATE_BIT5_0 	= 6'd10;
+localparam STATE_BIT5_1 	= 6'd11;
+localparam STATE_BIT5_2 	= 6'd12;
+localparam STATE_BIT4_0 	= 6'd13;
+localparam STATE_BIT4_1 	= 6'd14;
+localparam STATE_BIT4_2 	= 6'd15;
+localparam STATE_BIT3_0 	= 6'd16;
+localparam STATE_BIT3_1 	= 6'd17;
+localparam STATE_BIT3_2 	= 6'd18;
+localparam STATE_BIT2_0 	= 6'd19;
+localparam STATE_BIT2_1 	= 6'd20;
+localparam STATE_BIT2_2 	= 6'd21;
+localparam STATE_BIT1_0 	= 6'd22;
+localparam STATE_BIT1_1 	= 6'd23;
+localparam STATE_BIT1_2 	= 6'd24;
+localparam STATE_BIT0_0 	= 6'd25;
+localparam STATE_BIT0_1 	= 6'd26;
+localparam STATE_BIT0_2 	= 6'd27;
+localparam STATE_ACK_0 		= 6'd28;
+localparam STATE_ACK_1 		= 6'd29;
+localparam STATE_ACK_2 		= 6'd30;
+localparam STATE_REPEAT_0 	= 6'd31;
+localparam STATE_STOP_0 	= 6'd32;
+localparam STATE_STOP_1 	= 6'd33;
+localparam STATE_STOP_2 	= 6'd34;
 
 reg [5:0] state = STATE_IDLE;
 
@@ -77,7 +77,7 @@ begin
 			STATE_STOP_2:
 				state <= Op == OP_RESTART ? STATE_START_0 : STATE_IDLE;
 			default:
-				state <= state + 1;
+				state <= state + 6'b000001;
 		endcase
 	end
 end
@@ -89,7 +89,7 @@ assign SDA = sda_en ? sdar : 1'bz; // tristate SDA
 assign SCL = sclr;
 assign Completed = state == STATE_ACK_1;
 
-always @(state)
+always @(state, Data)
 begin
 	case (state)
 		STATE_IDLE: begin

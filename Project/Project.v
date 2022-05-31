@@ -26,10 +26,9 @@ module Project(
 	output			ADV_Vsync,			// ADV Vertical Sync
 	inout			ADV_SDA,			// ADV Serial Port Data
 	output			ADV_SCL,			// ADV Serial Port Data Clock
-	
+
 	// GPIO for debugging
-	output [35:0] GPIO_0,
-	output [35:0] GPIO_1,
+	output [19:0] GPIO_1,
 
 	input RST_N
 );
@@ -41,7 +40,7 @@ ClockDivider #(2) div_adv_clk (.clk_in(~FPGA_CLK1_50), .reset_n(RST_N), .clk_out
 // ADC_CLK leads pix_clk by 90 degrees
 
 wire i2c_clk;
-ClockDivider #(500) i2c_clkdiv (.clk_in(FPGA_CLK1_50), .reset_n(RST_N), .clk_out(i2c_clk));
+ClockDivider #(5000) i2c_clkdiv (.clk_in(FPGA_CLK1_50), .reset_n(RST_N), .clk_out(i2c_clk));
 
 wire hsync;
 wire vsync;
@@ -58,7 +57,7 @@ PixelCursor pixel_cursor (
 	vsync
 );
 
-assign ADV_D = ADV_DE ? 24'h00ff00 : 0;
+assign ADV_D = ADV_DE ? 24'h00ff00 : 24'b0;
 
 I2CSubsystem i2c (
 	.Start(~BTN0),
@@ -68,7 +67,40 @@ I2CSubsystem i2c (
 	.SCL(ADV_SCL)
 );
 
-assign GPIO_1 = {27'b0, pix_clk, ADV_SDA, ADV_SCL, ADV_Vsync, ADV_Hsync, ADV_DE, ADV_CLK, 2'b0};
-assign GPIO_0 = 36'b0;
+wire DIO0;
+wire DIO1;
+wire DIO2;
+wire DIO3;
+wire DIO4;
+wire DIO5;
+wire DIO6;
+wire DIO7;
+wire DIO8;
+wire DIO9;
+wire DIO10;
+wire DIO11;
+wire DIO12;
+wire DIO13;
+wire DIO14;
+wire DIO15;
+
+assign DIO0 = ADV_CLK;
+assign DIO1 = ADV_DE;
+assign DIO2 = ADV_Hsync;
+assign DIO3 = ADV_Vsync;
+assign DIO4 = ADV_SCL;
+assign DIO5 = ADV_SDA;
+assign DIO6 = i2c_clk;
+assign DIO7 = pix_clk;
+assign DIO8 = RST_N;
+assign DIO9 = FPGA_CLK1_50;
+assign DIO10 = 0;
+assign DIO11 = 0;
+assign DIO12 = 0;
+assign DIO13 = 0;
+assign DIO14 = 0;
+assign DIO15 = 0;
+
+assign GPIO_1 = {2'b0, DIO15, DIO14, DIO13, DIO12, DIO11, DIO10, DIO9, DIO8,  DIO7, DIO6, DIO5, DIO4, DIO3, DIO2, DIO1, DIO0, 2'b0};
 
 endmodule

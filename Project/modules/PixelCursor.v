@@ -16,7 +16,7 @@
 //   Total Pixels: 525
 
 module PixelCursor (
-	input pix_clk, // 25.2 MHz
+	input pix_clk, // 25 MHz
 	input reset_n,
 	output [9:0] hcount,
 	output [9:0] vcount,

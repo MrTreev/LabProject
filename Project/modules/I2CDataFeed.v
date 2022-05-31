@@ -5,12 +5,12 @@ module I2CDataFeed (
 	output reg [7:0] Data = 0
 );
 
-localparam OP_STOP = 0;		// Stop indefinately
-localparam OP_START = 1;	// Send start or repeat start signal
-localparam OP_CONTINUE = 2;	// Continue sending data
-localparam OP_RESTART = 3;	// Stop the transaction and start a new one
+localparam OP_STOP			= 2'd0;	// Stop indefinately
+localparam OP_START			= 2'd1;	// Send start or repeat start signal
+localparam OP_CONTINUE		= 2'd2;	// Continue sending data
+localparam OP_RESTART		= 2'd3;	// Stop the transaction and start a new one
 
-localparam SLAVE_ADDR = 'h72; // or 'h7A ?
+localparam SLAVE_ADDR		= 8'h72; // or 'h7A ?
 
 reg [6:0] state = 0;
 
@@ -23,7 +23,7 @@ begin
 			93: // The last state
 				state <= 0;
 			default:
-				state <= state + 1;
+				state <= state + 1'b1;
 		endcase
 	end
 end
@@ -407,6 +407,10 @@ begin
         	Op <= OP_CONTINUE;
         	Data <= 'h7d;
         end
+		default: begin
+			Op <= OP_STOP;
+			Data <= 0;
+		end
 	endcase
 end
 
