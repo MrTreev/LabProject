@@ -12,7 +12,16 @@ module I2CSubsystem (
 );
 
 wire controller_completed;
+
 wire update_data = Start | controller_completed;
+//reg update_data = 0;
+//always @(posedge(Clock), negedge(Reset_n))
+//begin
+//	if (~Reset_n)
+//		update_data <= 0;
+//	else
+//		update_data <= Start | controller_completed;
+//end
 
 wire [7:0] data;
 wire [1:0] op;

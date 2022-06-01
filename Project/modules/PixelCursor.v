@@ -18,16 +18,28 @@
 module PixelCursor (
 	input pix_clk, // 25 MHz
 	input reset_n,
-	output [9:0] hcount,
-	output [9:0] vcount,
+	output reg [9:0] hcount = 0,
+	output reg [9:0] vcount = 0,
 	output active,
 	output hsync,
 	output vsync
 );
 
-
-Counter #(800) hcounter (.clk(pix_clk), .reset_n(reset_n), .value(hcount));
-Counter #(525) vcounter (.clk(hcount < 400), .reset_n(reset_n), .value(vcount));
+always @(posedge(pix_clk), negedge(reset_n)) begin
+	if (~reset_n) begin
+		hcount <= 0;
+		vcount <= 0;
+	end else begin
+		if (hcount == 799) begin
+			hcount <= 0;
+			if (vcount == 524)
+				vcount <= 0;
+			else
+				vcount <= vcount + 1'b1;
+		end else
+			hcount <= hcount + 1'b1;
+	end
+end
 
 assign active = hcount < 640 && vcount < 480;
 assign hsync = hcount >= 688 && hcount < 784;

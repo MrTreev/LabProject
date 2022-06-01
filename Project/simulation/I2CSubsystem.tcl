@@ -1,5 +1,6 @@
 restart -force -nowave
 add wave Start Clock Reset_n
+add wave update_data
 add wave -hex op data
 add wave SDA SCL
 
@@ -13,6 +14,6 @@ force Reset_n 1
 run 40
 
 force Start 1 0, 0 40
-run 18000
+run 60000
 
 view wave

@@ -35,32 +35,48 @@ module Project(
 
 wire pix_clk;
 //PLLPixelClock pll_pixel_clock (.refclk(FPGA_CLK1_50), .rst(~RST_N), .outclk_0(ADV_CLK), .outclk_1(pix_clk));
-ClockDivider #(2) div_pix_clk (.clk_in(FPGA_CLK1_50), .reset_n(RST_N), .clk_out(pix_clk));
-ClockDivider #(2) div_adv_clk (.clk_in(~FPGA_CLK1_50), .reset_n(RST_N), .clk_out(ADV_CLK));
+ClockDividerPow2 #(1) div_pix_clk (.clk_in(FPGA_CLK1_50), .reset_n(RST_N), .clk_out(pix_clk));
+ClockDividerPow2 #(1) div_adv_clk (.clk_in(~FPGA_CLK1_50), .reset_n(RST_N), .clk_out(ADV_CLK));
 // ADC_CLK leads pix_clk by 90 degrees
 
 wire i2c_clk;
-ClockDivider #(5000) i2c_clkdiv (.clk_in(FPGA_CLK1_50), .reset_n(RST_N), .clk_out(i2c_clk));
+ClockDividerPow2 #(12) i2c_clkdiv (.clk_in(FPGA_CLK1_50), .reset_n(RST_N), .clk_out(i2c_clk));
 
 wire hsync;
 wire vsync;
 assign ADV_Hsync = ~hsync;
 assign ADV_Vsync = ~vsync;
 
+wire [9:0] pix_x;
+wire [9:0] pix_y;
+
 PixelCursor pixel_cursor (
 	pix_clk,
 	RST_N,
-	,
-	,
+	pix_x,
+	pix_y,
 	ADV_DE,
 	hsync,
 	vsync
 );
 
-assign ADV_D = ADV_DE ? 24'h00ff00 : 24'b0;
+reg [23:0] color = 24'h0;
+assign ADV_D = ADV_DE ? color : 24'h0;
+//assign ADV_D = ADV_DE ? 24'hff0000 : 24'h0;
+
+always @(pix_y) begin
+	if (pix_y[1] == 1'b1)
+		color <= 24'hff0000;
+	else
+		color <= 24'h00ff00;
+end
+
+reg i2c_start = 0;
+always @(posedge(i2c_clk))
+	i2c_start <= ~BTN0;
 
 I2CSubsystem i2c (
-	.Start(~BTN0),
+	.Start(i2c_start),
 	.Clock(i2c_clk),
 	.Reset_n(RST_N),
 	.SDA(ADV_SDA),
