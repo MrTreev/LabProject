@@ -65,10 +65,17 @@ assign ADV_D = ADV_DE ? color : 24'h0;
 //assign ADV_D = ADV_DE ? 24'hff0000 : 24'h0;
 
 always @(pix_y) begin
-	if (pix_y[1] == 1'b1)
-		color <= 24'hff0000;
-	else
-		color <= 24'h00ff00;
+	if (pix_y < 240) begin
+		if (pix_x < 320)
+			color <= 24'hff0000;
+		else
+			color <= 24'h00ff00;
+	end else begin
+		if (pix_x < 320)
+			color <= 24'h0000ff;
+		else
+			color <= 24'hffff00;
+	end
 end
 
 reg i2c_start = 0;
