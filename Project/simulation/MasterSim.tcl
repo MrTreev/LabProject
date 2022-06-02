@@ -1,3 +1,9 @@
+### ------------------------------------------------------------------------------------------------------------------------ ###
+
+set step 10
+
+### ------------------------------------------------------------------------------------------------------------------------ ###
+
 proc simAddressDecoder {} {
 	restart -force -nowave
 
@@ -10,6 +16,8 @@ proc simAddressDecoder {} {
 
 	# Sim
 }
+
+### ------------------------------------------------------------------------------------------------------------------------ ###
 
 proc simClockDivider {div} {
 	restart -force -nowave
@@ -28,6 +36,8 @@ proc simClockDivider {div} {
 	force reset_n 1
 	run [expr $div*50]
 }
+
+### ------------------------------------------------------------------------------------------------------------------------ ###
 
 proc simI2CController {} {
 	restart -force -nowave
@@ -69,6 +79,8 @@ proc simI2CController {} {
     run 120
 }
 
+### ------------------------------------------------------------------------------------------------------------------------ ###
+
 proc simI2CDataFeed {} {
 	restart -force -nowave
 	# Add waves
@@ -89,6 +101,8 @@ proc simI2CDataFeed {} {
 	force Reset_n 1
 	run 680
 }
+
+### ------------------------------------------------------------------------------------------------------------------------ ###
 
 proc simI2CSubsystem {} {
 	restart -force -nowave
@@ -119,6 +133,8 @@ proc simI2CSubsystem {} {
 	run 18000
 }
 
+### ------------------------------------------------------------------------------------------------------------------------ ###
+
 proc simPixelCursor {} {
 	restart -force -nowave
 	# Add waves
@@ -141,3 +157,39 @@ proc simPixelCursor {} {
 	force reset_n 1
 	run 20ms
 }
+
+### ------------------------------------------------------------------------------------------------------------------------ ###
+
+proc simPixelAddr {} {
+
+	# Source PixelAddr, Reset Waveform, Setup Runtime
+	vsim work.PixelAddr
+	restart -force -nowave
+	set runtime 0
+	global step
+
+	# Add waves
+	add wave -color #00ff00 -unsigned offset
+	add wave -color #00ff00 -unsigned xpos
+	add wave -color #00ff00 -unsigned ypos
+	add wave -color #ff0000 -unsigned addr
+	add wave -color #0000ff -unsigned address
+
+	force offset 0
+	force xpos 0
+	force ypos 0
+
+	run $step
+
+	for {set a 1} {$a < 525} {incr a} {
+		force ypos 10#$a $runtime
+		for {set b 1} {$b < 800} {incr b} {
+			force xpos 10#$b $runtime
+			set runtime [expr $runtime + $step]
+		}
+	}
+	run $runtime
+	view wave
+}
+
+### ------------------------------------------------------------------------------------------------------------------------ ###

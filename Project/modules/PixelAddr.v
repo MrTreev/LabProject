@@ -11,7 +11,13 @@ module PixelAddr(
 
 	always @(*)
 	begin
-		addr <= ypos*9'd160 + xpos + offset;
+		if (xpos < 640 && ypos < 480) begin
+			addr <= (ypos/10'd4) * 10'd160 + (xpos/10'd4) + offset;
+		end
+		else
+		begin
+			addr <= 16'b1;
+		end
 	end
 
 	assign address = addr;

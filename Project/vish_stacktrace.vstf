@@ -1,0 +1,10 @@
+# Current time Thu Jun  2 14:06:50 2022
+# ModelSim - Intel FPGA Edition Stack Trace
+# Program = vish
+# Id = "2020.1"
+# Version = "2020.02"
+# Date = "Feb 28 2020"
+# Platform = "linuxaloem"
+# 0    0x084a8906: 'Tk_FreeGC + 0x26' in '/opt/intelFPGA/20.1/modelsim_ase/linuxaloem/vish'
+# 1    0x08655a50: 'Tcl_Release + 0x90' in '/opt/intelFPGA/20.1/modelsim_ase/linuxaloem/vish'
+# 2    0xec835351: '<unknown (@0xec835351)>'

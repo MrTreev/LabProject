@@ -1,1 +1,31 @@
 # Loading project Project
+# Compile of AddressDecoder.v was successful.
+# Compile of ClockDivider.v was successful.
+# Compile of Counter.v was successful.
+# Compile of I2CController.v was successful.
+# Compile of I2CDataFeed.v was successful.
+# Compile of I2CSubsystem.v was successful.
+# Compile of NBitMWideRegisterFile.v was successful.
+# Compile of NBitRegister.v was successful.
+# Compile of PixelCursor.v was successful.
+# Compile of Project.v was successful.
+# Compile of PixelAddr.v was successful.
+# 11 compiles, 0 failed with no errors.
+source simulation/MasterSim.tcl
+source simulation/MasterSim.tcl
+simPixelAddr 
+# vsim work.PixelAddr 
+# Start time: 14:23:29 on Jun 02,2022
+# Loading work.PixelAddr
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# .main_pane.wave.interior.cs.body.pw.wf
+
+
+
+simPixelAddr
+# End time: 16:31:15 on Jun 02,2022, Elapsed time: 2:07:46
+# Errors: 0, Warnings: 1
+# vsim work.PixelAddr 
+# Start time: 16:31:15 on Jun 02,2022
+# Loading work.PixelAddr
+# .main_pane.wave.interior.cs.body.pw.wf
