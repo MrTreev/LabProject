@@ -1,58 +1,9 @@
-/home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/modules/I2CSubsystem.v {1 {vlog -work simulation/work -stats=none /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/modules/I2CSubsystem.v
-Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
--- Compiling module I2CSubsystem
-
-Top level modules:
-	I2CSubsystem
-
-} {} {}} /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/modules/I2CController.v {1 {vlog -work simulation/work -stats=none /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/modules/I2CController.v
-Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
--- Compiling module I2CController
-
-Top level modules:
-	I2CController
-
-} {} {}} /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/modules/NBitRegister.v {1 {vlog -work simulation/work -stats=none /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/modules/NBitRegister.v
+/home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/modules/NBitRegister.v {1 {vlog -work simulation/work -stats=none /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/modules/NBitRegister.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
 -- Compiling module NBitRegister
 
 Top level modules:
 	NBitRegister
-
-} {} {}} /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/modules/ClockDivider.v {1 {vlog -work simulation/work -stats=none /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/modules/ClockDivider.v
-Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
--- Compiling module ClockDivider
-
-Top level modules:
-	ClockDivider
-
-} {} {}} /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/modules/PixelCursor.v {1 {vlog -work simulation/work -stats=none /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/modules/PixelCursor.v
-Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
--- Compiling module PixelCursor
-
-Top level modules:
-	PixelCursor
-
-} {} {}} /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/modules/I2CDataFeed.v {1 {vlog -work simulation/work -stats=none /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/modules/I2CDataFeed.v
-Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
--- Compiling module I2CDataFeed
-
-Top level modules:
-	I2CDataFeed
-
-} {} {}} /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/modules/NBitMWideRegisterFile.v {1 {vlog -work simulation/work -stats=none /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/modules/NBitMWideRegisterFile.v
-Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
--- Compiling module NBitMWideRegisterFile
-
-Top level modules:
-	NBitMWideRegisterFile
-
-} {} {}} /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/modules/Counter.v {1 {vlog -work simulation/work -stats=none /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/modules/Counter.v
-Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
--- Compiling module Counter
-
-Top level modules:
-	Counter
 
 } {} {}} /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/modules/AddressDecoder.v {1 {vlog -work simulation/work -stats=none /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/modules/AddressDecoder.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
@@ -60,5 +11,12 @@ Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 
 
 Top level modules:
 	AddressDecoder
+
+} {} {}} /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/modules/NBitMWideRegisterFile.v {1 {vlog -work simulation/work -stats=none /home/opatterson/Documents/RMIT/2022BH072/S1AdvancedDigitalDesign1/Labs/LabProject/Project/modules/NBitMWideRegisterFile.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module NBitMWideRegisterFile
+
+Top level modules:
+	NBitMWideRegisterFile
 
 } {} {}}

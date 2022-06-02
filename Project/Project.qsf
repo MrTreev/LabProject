@@ -175,6 +175,7 @@ set_global_assignment -name EDA_RUN_TOOL_AUTOMATICALLY OFF -section_id eda_simul
 set_global_assignment -name EDA_NETLIST_WRITER_OUTPUT_DIR simulation/work -section_id eda_simulation
 set_global_assignment -name FLOW_DISABLE_ASSEMBLER OFF
 set_global_assignment -name ENABLE_DRC_SETTINGS ON
+set_global_assignment -name VERILOG_FILE modules/PixelAddr.v
 set_global_assignment -name VERILOG_FILE modules/NBitMWideRegisterFile.v
 set_global_assignment -name VERILOG_FILE modules/AddressDecoder.v
 set_global_assignment -name VERILOG_FILE modules/NBitRegister.v
