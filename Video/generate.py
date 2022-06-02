@@ -20,5 +20,6 @@ if not os.path.exists('video.bin'):
   with open('video.bin', 'wb') as bin_file:
     for png_file in sorted(os.listdir('png')):
       img = cv.imread(os.path.join('png', png_file), cv.IMREAD_UNCHANGED)
+      img = img[:, :, [2, 1, 0]] # convert BGR to RGB
       img_pad = np.pad(img, ((0, 0), (0, 0), (0, 1)), constant_values=255)
       bin_file.write(img_pad.tobytes())
