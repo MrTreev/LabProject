@@ -34,6 +34,7 @@ module Project(
 
 	// Define Wires
 	wire			pix_clk;
+	wire			frame;
     wire			i2c_clk;
     wire			hsync;
     wire			vsync;
@@ -68,10 +69,10 @@ module Project(
 
 	// Get Pixel Address from x and y values
 	PixelAddr PixAddr(
-		10'h0,
 		pix_x,
 		pix_y,
-		pix_addr
+		pix_addr,
+		frame
 	);
 
 	// Get Pixel Value from Pixel Address
@@ -137,7 +138,7 @@ module Project(
     assign DIO6		= i2c_clk;
     assign DIO7		= pix_clk;
     assign DIO8		= RST_N;
-    assign DIO9		= 0;
+    assign DIO9		= frame;
     assign DIO10	= 0;
     assign DIO11	= 0;
     assign DIO12	= 0;

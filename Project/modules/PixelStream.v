@@ -5,7 +5,7 @@ module PixelStream(
 
 );
 	// Define Registers
-	reg [23:0] memory [19199:0];
+	reg [23:0] memory [38399:0];
 	reg [23:0] value;
 
 	// Initialise all registers
