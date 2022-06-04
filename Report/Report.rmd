@@ -15,7 +15,9 @@ header-includes:
     - \usepackage{float}
     - \usepackage{fancyhdr}
     - \usepackage{keyval}
+    - \usepackage{siunitx}
     - \floatplacement{figure}{H}
+    - \floatplacement{table}{H}
     - \usepackage{tikz}
     - \usepackage{tikz-timing}
 documentclass: "article"
@@ -34,13 +36,6 @@ nocite: '@*'
 ---
 \pagestyle{empty}
 
-\let\origfigure\figure
-\let\endorigfigure\endfigure
-\renewenvironment{figure}[1][2] {
-    \expandafter\origfigure\expandafter[H]
-} {
-    \endorigfigure
-}
 \begin{centering}
 
 \vspace{5 cm}
@@ -168,7 +163,82 @@ Outside of the front and back porches and syncing periods, DE is asserted high, 
 
 Figure \ref{VideoTimingWave} shows an example of the video signals. It sends 5 scanlines, in between are (respectively) the horizontal back porches, horizontal sync periods, and horizontal front porches. The signal then enters a vertical back porch, a vertical sync period, and a vertical front porch, before start sending the next frame.
 
-% TODO: I2C configs needed
+For this project, a video mode of $640 \times 480$ @ \SI{60}{Hz} is used, as it is simple and supported by most (if not all) monitors. This mode requires the video signal timings described in Table \ref{Video480Timing}.
+
+\begin{table}
+	\hfill
+	\begin{tabular}{lr}
+		\hline
+		\multicolumn{2}{c}{Horizontal} \\
+		\hline
+		Front porch & 16 \\
+		Sync width & 96 \\
+		Back porch & 48 \\
+		Active pixels & 640 \\
+		Total pixels & 800 \\
+		\hline
+	\end{tabular}%
+	\hfill
+	\begin{tabular}{lr}
+		\hline
+		\multicolumn{2}{c}{Vertical} \\
+		\hline
+		Front porch & 10 \\
+		Sync width & 2 \\
+		Back porch & 33 \\
+		Active pixels & 480 \\
+		Total pixels & 525 \\
+		\hline
+	\end{tabular}%
+	\hspace{\fill}
+	\caption{Display timings for $640 \times 480$ @ \SI{60}{Hz}}
+	\label{Video480Timing}
+\end{table}
+
+% TODO: I2C configs needed, source taken from Terasic demo
+
+\begin{table}
+	\centering
+	\begin{tabular}{lll}
+		\hline
+		Register Address & Register Value & Note \\
+		\hline
+		'h98 & 'h03 & Must be set to 0x03 for proper operation \\
+		'h01 & 'h00 & Set 'N' value at 6144 \\
+		'h02 & 'h18 & Set 'N' value at 6144 \\
+		'h03 & 'h00 & Set 'N' value at 6144 \\
+		'h14 & 'h70 & Set Ch count in the channel status to 8 \\
+		'h15 & 'h20 & Input 444 (RGB or YCrCb) with Separate Syncs, 48kHz fs \\
+		'h16 & 'h30 & Output format 444, 24-bit input \\
+		'h18 & 'h46 & Disable CSC \\
+		'h40 & 'h80 & General control packet enable \\
+		'h41 & 'h10 & Power down control \\
+		'h49 & 'ha8 & Set dither mode - 12-to-10 bit \\
+		'h55 & 'h10 & Set RGB in AVI infoframe \\
+		'h56 & 'h08 & Set active format aspect \\
+		'h96 & 'hf6 & Set interrup \\
+		'h73 & 'h07 & Info frame Ch count to 8 \\
+		'h76 & 'h1f & Set speaker allocation for 8 channels \\
+		'h98 & 'h03 & Must be set to 0x03 for proper operation \\
+		'h99 & 'h02 & Must be set to Default Value \\
+		'h9a & 'he0 & Must be set to 0b1110000 \\
+		'h9c & 'h30 & PLL filter R1 value \\
+		'h9d & 'h61 & Set clock divide \\
+		'ha2 & 'ha4 & Must be set to 0xA4 for proper operation \\
+		'ha3 & 'ha4 & Must be set to 0xA4 for proper operation \\
+		'ha5 & 'h04 & Must be set to Default Value \\
+		'hab & 'h40 & Must be set to Default Value \\
+		'haf & 'h14 & Select HDMI mode \\
+		'hba & 'h60 & No clock delay \\
+		'hd1 & 'hff & Must be set to Default Value \\
+		'hde & 'h10 & Must be set to Default for proper operation \\
+		'he4 & 'h60 & Must be set to Default Value \\
+		'hfa & 'h7d & Nbr of times to look for good phase \\
+		\hline
+	\end{tabular}
+	\caption{ADV7513 registers needed to be set}
+	\label{ADVRegisters}
+\end{table}
 
 ## Running Linux on the DE-10 Nano \label{LinuxOnDE10}
 
@@ -191,7 +261,18 @@ Appendices \ref{TLE} to \ref{PixelStream} list all Verilog code implementing the
 	\label{ModulesOverview}
 \end{figure}
 
-## ClockDivider
+## ClockDividerPow2
+
+Clock dividers are needed to reduce the frequency of the \SI{50}{MHz} built-in FPGA clock. Specifically, there are 2 slower clocks needed:
+
+* The I\textsuperscript{2}C interface of ADV7513 does not function with a high frequency, therefore the clock is divided by 4096 into \SI{12.20703125}{kHz} before being used by the I\textsuperscript{2}C controller.
+* According to Table \ref{Video480Timing}, the total number of pixels each frame is $800 \times 525 = 420000$, which means there are $420000 \times 60 = 25200000$ pixels every second, which requires a \SI{25.2}{MHz} clock. This can be approximated by dividing the built-in clock by 2 to obtain a \SI{25}{MHz} clock.
+
+The module ClockDividerPow2 divides an input clock by a factor of $2^n$, where $n$ is a parameter. This is implemented by an $n$-bit counter that increses by 1 at each rising clock edge. The MSB of the counter is treated as the output clock, whose frequency will then be
+
+$$f_\text{out} = \frac{f_\text{in}}{2^n}$$
+
+The clock divider used to be able to divide clocks by an arbitrary factor, where the output is produced by comparing the counter content to half of the dividing factor. However, doing so appears to prompt difficult-to-track issues, thus the design is simplified to only divide by a power of 2.
 
 ## PixelCursor
 
@@ -200,6 +281,105 @@ Appendices \ref{TLE} to \ref{PixelStream} list all Verilog code implementing the
 ## PixelStream
 
 ## I2CSubsystem
+
+This module is composed of 2 submodules, I2CController and I2CDataFeed.
+
+I2CController receives an Op[1:0] signal specifying what to do to the bus (Table \ref{OpMeanings}), and a byte of data (Data[7:0]) to be sent. The module maintains a state machine with 35 states, with each state corresponding to some output SDA and SCL (Figure \ref{I2CControllerStateOutput}). State transitions occur on every rising clock edge, some of which depends on the value of Op[1:0] (Figure \ref{I2CControllerStateDiagram}).
+
+\begin{table}
+	\centering
+	\begin{tabular}{lll}
+		\hline
+		Op[1:0] & Name & Description \\
+		\hline
+		00 & STOP & Stop the I\textsuperscript{2}C transaction, release the bus, or keep it released. \\
+		01 & START & Start a I\textsuperscript{2}C transaction, or repeat start the transaction without releasing the bus. \\
+		10 & CONTINUE & Continue sending the the next byte within the ongoing transaction. \\
+		11 & RESTART & Stop and start the I\textsuperscript{2}C transaction, releasing the bus in the process. \\
+		\hline
+	\end{tabular}
+	\caption{Meanings of the Op[1:0] signal in I2CSubsystem}
+	\label{OpMeanings}
+\end{table}
+
+\begin{figure}
+	\centering
+	\begin{tikztimingtable}[timing/wscale=5]
+		state & [Z] D{IDLE} D{START\_0} D{START\_1} D{START\_2} D{BIT7\_0} D{BIT7\_1} D{BIT7\_2} D{BIT6\_0} D{BIT6\_1} D{BIT6\_2} D{BIT5\_0} D{BIT5\_1} 0Z \\
+		SDA & H HLL 3D{Data[7]} 3D{Data[6]} 2D{Data[5]} \\
+		SCL & H HHL LHL LHL LH 0L \\
+		\\
+		state & [Z] D{BIT5\_2} D{BIT4\_0} D{BIT4\_1} D{BIT4\_2} D{BIT3\_0} D{BIT3\_1} D{BIT3\_2} D{BIT2\_0} D{BIT2\_1} D{BIT2\_2} D{BIT1\_0} D{BIT1\_1} 0Z \\
+		SDA & D{Data[5]} 3D{Data[4]} 3D{Data[3]} 3D{Data[2]} 2D{Data[1]} \\
+		SCL & L LHL LHL LHL LH 0L \\
+		\\
+		state & [Z] D{BIT1\_2} D{BIT0\_0} D{BIT0\_1} D{BIT0\_2} D{ACK\_0} D{ACK\_1} D{ACK\_2} D{REPEAT\_0} D{STOP\_0} D{STOP\_1} D{STOP\_2} 0Z \\
+		SDA & D{Data[1]} 3D{Data[0]} 3Z H LLH \\
+		SCL & L LHL LHL L LHH \\
+	\end{tikztimingtable}
+	\caption{Output of I2CController corresponding to each state}
+	\label{I2CControllerStateOutput}
+\end{figure}
+
+\begin{figure}[p]
+	\centering
+	\scalebox{0.5}{\input{Images/I2CControllerStates.latex}}
+	\caption{State diagram of I2CController}
+	\label{I2CControllerStateDiagram}
+\end{figure}
+
+Additionally, I2CController outputs an output Completed, which is high only when the state is ACK_1, indicating the transfer of a byte is completed.
+
+I2CDataFeed provides the Op[1:0] and Data[7:0] signals that I2CController needs, they are also determined by a state machine. On reset, its state is 0, where Op[1:0] is STOP, thus keeping the I2CController in idle. When an Update signal is received, it progresses to the next state, looping back to state 0 after the last state. This state machines contains 94 states, with all other states besides 0 containing some non-STOP Op[1:0] and a byte of Data[7:0], they list the sequence of data that that needs to be sent in order to configure the ADV7513 IC.
+
+The Update input of I2CDataFeed is connected to the Completed output, forming a feedback loop: When a byte transfer is completed, I2CController notifies I2CDataFeed to update its Op[1:0] and Data[7:0], then I2CController carries out the next operation. When I2CDataFeed reaches state 0, the loop stops. This also means that both state machines will stay idle upon reset, therefore an external stimulus from a button is also connected to Update. When I2CDataFeed is in state 0 and BTN0 on the DE-10 Nano is pressed, it enters state 1, instructing I2CController to start the feedback loop.
+
+For each register that needs to be set within the ADV7513, 5 steps are involved:
+
+1. Start an I\textsuperscript{2}C transaction.
+2. Send the slave address of the ADV7513, which is set 'h72 on the DE-10 Nano.
+3. Send the register address.
+4. Send the value to be written to the register.
+5. Stop the I\textsuperscript{2}C transaction.
+
+To set the registers listed in Table \ref{ADVRegisters}, I2CDataFeed contains the states partially listed in Table \ref{I2CDataFeedStates}, which produces Figure \ref{I2CSubsystemWave}, the omitted states can be easily inferred by referencing Table \ref{ADVRegisters}.
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{rll}
+		\hline
+		State & Op[1:0] & Data[7:0] \\
+		\hline
+		0 & STOP & 'h00 \\
+		1 & START & 'h72 (slave address) \\
+		2 & CONTINUE & 'h98 (first register address) \\
+		3 & CONTINUE & 'h03 (first register value) \\
+		4 & RESTART & 'h72 (slave address) \\
+		5 & CONTINUE & 'h01 (second register address) \\
+		6 & CONTINUE & 'h00 (second register value) \\
+		7 & RESTART & 'h72 (slave address) \\
+		\multicolumn{3}{c}{$\vdots$} \\
+		93 & CONTINUE & 'h7d (last register value) \\
+		\hline
+	\end{tabular}
+	\caption{Partial list of states within I2CDataFeed}
+	\label{I2CDataFeedStates}
+\end{table}
+
+\begin{figure}
+	\centering
+	\begin{tikztimingtable}[timing/wscale=0.3]
+		Start button & 9L 3H 168L \\
+		Completed & 37L H 26L H 26L H 32L H 26L H 26L H 2L \\
+		I2CDataFeed state & 9D{0} 28D{1} 27D{2} 27D{3} 33D{4} 27D{5} 27D{6} 2D{} \\
+		Op[1:0] & 9D{STOP} 28D{START} 27D{CONTINUE} 27D{CONTINUE} 33D{RESTART} 27D{CONTINUE} 27D{CONTINUE} 2D{}\\
+		Data[7:0] & 9D{'h00} 28D{'h72} 27D{h'98} 27D{'h03} 33D{'h72} 27D{'h01} 27D{'h00} 2D{} \\
+		SDA & 9H HLL 3L3H3H3H3L3L3H3L3Z 3H3L3L3H3H3L3L3L3Z 3L3L3L3L3L3L3H3H3Z LLHHLL 3L3H3H3H3L3L3H3L3Z 3L3L3L3L3L3L3L3H3Z 24L3Z \\
+		SCL & 9H HHL 27{LHL} LHHHHL 27{LHL} \\
+	\end{tikztimingtable}
+	\caption{Operation of I2CSubsystem}
+	\label{I2CSubsystemWave}
+\end{figure}
 
 ## Scrapped Work
 

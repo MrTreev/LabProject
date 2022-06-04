@@ -1,0 +1,50 @@
+@startuml
+hide empty description
+
+[*] --> IDLE
+IDLE --> IDLE
+IDLE --> START_0 : Op = START
+
+START_0 -> START_1
+START_1 -> START_2
+START_2 --> BIT7_0
+BIT7_0 -> BIT7_1
+BIT7_1 -> BIT7_2                                
+BIT7_2 --> BIT6_0                                
+BIT6_0 -> BIT6_1                                
+BIT6_1 -> BIT6_2                                
+BIT6_2 --> BIT5_0                                
+BIT5_0 -> BIT5_1                                
+BIT5_1 -> BIT5_2                                
+BIT5_2 --> BIT4_0                                
+BIT4_0 -> BIT4_1                                
+BIT4_1 -> BIT4_2                                
+BIT4_2 --> BIT3_0                                
+BIT3_0 -> BIT3_1                                
+BIT3_1 -> BIT3_2                                
+BIT3_2 --> BIT2_0
+BIT2_0 -> BIT2_1
+BIT2_1 -> BIT2_2
+BIT2_2 --> BIT1_0
+BIT1_0 -> BIT1_1
+BIT1_1 -> BIT1_2
+BIT1_2 --> BIT0_0
+BIT0_0 -> BIT0_1
+BIT0_1 -> BIT0_2
+BIT0_2 --> ACK_0
+ACK_0 -> ACK_1
+ACK_1 -> ACK_2
+
+ACK_2 --> REPEAT_0 : Op = Start
+ACK_2 --> BIT7_0 : Op = CONTINUE
+ACK_2 --> STOP_0 : Op = RESTART
+ACK_2 --> STOP_0 : Op = STOP
+
+REPEAT_0 --> START_0
+
+STOP_0 -> STOP_1
+STOP_1 -> STOP_2
+STOP_2 --> IDLE
+STOP_2 --> START_0 : Op = RESTART
+
+@enduml
