@@ -3,16 +3,21 @@ author: Oliver Patterson (S3723206), Kaizhe Huang (S3686152)
 date: "21/05/2022"
 fontsize: 10pt
 header-includes:
+    - \usepackage{csquotes}
+    - \usepackage[australian]{babel}
     - \usepackage{booktabs}
     - \usepackage{dcolumn}
     - \usepackage{wrapfig}
     - \usepackage{subcaption}
     - \usepackage{caption}
     - \usepackage{graphicx}
+    - \graphicspath{{Images}}
     - \usepackage{float}
     - \usepackage{fancyhdr}
     - \usepackage{keyval}
     - \floatplacement{figure}{H}
+    - \usepackage{tikz}
+    - \usepackage{tikz-timing}
 documentclass: "article"
 geometry: margin=2cm
 output:
@@ -94,9 +99,109 @@ Engineering
 
 # Introdution \label{Intro}
 
+In this project, an FPGA design is created for the DE-10 Nano development board to be capable of displaying custom images to an HDMI monitor. The design is developed with Quartus Prime and written in Verilog HDL.
+
+The initial goal of the project was to allow the FPGA to receive video data from a controller software running on the hard processor, and forwards such video to an HDMI monitor. However, due to time constraint and technical difficulty, the goal of the project is reduced to only displaying images hardcoded within the FPGA.
+
 # Literature Search \label{Literature}
 
+## DE-10 Nano
+
+The DE-10 Nano development board is based a Cyclone V SoC FPGA. Relavant components include:
+
+* A Field-Programmable Gate Array (FPGA), this is the main focus of this project.
+* A Hard Processor System (HPS) based on ARM Cortex-A9 architecture.
+* An ADV7513 HDMI transmittor IC.
+* A built-in USB-Blaster programmer for the FPGA.
+* A Micro-SD card slot, allowing an OS to be loaded to the HPS.
+
+## ADV7513 \label{ADV7513}
+
+This HDMI transmittor IC simplifies the logic required to output a valid HDMI video signal. The IC, configurable via I\textsuperscript{2}C, supports vairous HDMI resolutions and colour formats. When correctly configured, ADV7513 receives a video signal from the FPGA, and outputs it through an HDMI connector, where it is interpreted by an HDMI monitor.
+
+The input signals are:
+
+* Colour data (D[23:0])
+* Data enable (DE)
+* Hsync
+* VSync
+* Clock
+
+\begin{figure}
+	\centering
+	\begin{tikzpicture}[x=0.015cm, y=-0.015cm, every node/.style={font={\sffamily}}]
+		\draw (0, 0) rectangle (800, 525);
+		\fill[orange!10!white] (16, 10) rectangle (656, 490);
+		\fill[gray] (704, 0) rectangle (800, 525);
+		\fill[gray] (0, 523) rectangle (800, 525);
+		\draw (16, 0) -- (16, 525);
+		\draw (656, 0) -- (656, 525);
+		\draw (0, 10) -- (800, 10);
+		\draw (0, 490) -- (800, 490);
+		\node at (336, 250) {Frame data};
+		\draw[|-|,thick,blue] (0, 0) -- node [above] {Horizontal front porch} (16, 0);
+		\draw[|-|,thick,blue] (656, 0) -- node [above,xshift=-1.4cm] {Horizontal back porch} (704, 0);
+		\draw[|-|,thick,black] (704, 0) -- node [above,xshift=0.6cm] {Horizontal sync} (800, 0);
+		\draw[|-|,thick,blue] (0, 0) -- node [left] {Vertical front porch} (0, 10);
+		\draw[|-|,thick,blue] (0, 490) -- node [left] {Vertical back porch} (0, 523);
+		\draw[|-|,thick,black] (0, 523) -- node [left,yshift=-0.2cm] {Vertical sync} (0, 525);
+	\end{tikzpicture}
+	\caption{Video signal timing graph}
+	\label{VideoTimingGraph}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\begin{tikztimingtable}[timing/wscale=0.2]
+		D[23:0] & 5{X 12{D} 7{X}} 100{X} 2{X 12{D} 7{X}} \\
+		DE      & 5{L 12{H} 7{L}} 100{L} 2{L 12{H} 7{L}} \\
+		Hsync   & 12{15{H} 5{L}} \\
+		Vsync   & 140{H} 40{L} 60{H} \\
+	\end{tikztimingtable}
+	\caption{Video signal timing waveform}
+	\label{VideoTimingWave}
+\end{figure}
+
+Each pixel is sent left-to-right, by scanlines, top-to-bottom, in each clock cycle. Figure \ref{VideoTimingGraph} shows the timings required for one frame. Each frame starts in a vertical front porch for the first several scanlines, where no data is sent. Then scalines containing frame data is sent. Followed by a vertical back porch, where no data is sent, and a vertical sync period, where a Vsync signal is asserted low. Each scanline starts in a horizotal front porch, where no data is sent, then data corresponding to this scanline is sent. Followed by a horizontal back porch, where no data is sent, and a horizontal sync period, where a Hsync signal is asserted low.
+
+Outside of the front and back porches and syncing periods, DE is asserted high, and D[23:0] will contain the colour of the current pixel. D[23:0] may be in many colour formats, depending on the configurations made via I\textsuperscript{2}C, but the simpliest format is RGB, where each of the red, blue and green colour components are encoded in 8-bit unsigned integers.
+
+Figure \ref{VideoTimingWave} shows an example of the video signals. It sends 5 scanlines, in between are (respectively) the horizontal back porches, horizontal sync periods, and horizontal front porches. The signal then enters a vertical back porch, a vertical sync period, and a vertical front porch, before start sending the next frame.
+
+% TODO: I2C configs needed
+
+## Running Linux on the DE-10 Nano \label{LinuxOnDE10}
+
+\textcite{DE10Web} provides an image that can be flashed onto a Micro-SD card. Powering-on the DE-10 Nano while the Micro-SD card is insert boots a Linux distribution, Angström Linux, on the HPS.
+
+The boot process is fascillitated by U-Boot. U-Boot may configure the FPGA, where it can later be accessed by device drivers on Linux, and then loads the Linux kernel from the SD card. By default, U-Boot configures the FPGA to be a graphical interface for Linux. This can be modified so that the FPGA is loaded with a custom firmware.
+
+% TODO: share memory between FPGA and Linux
+
 # Technical Work and Results \label{TechWork}
+
+## Overview \label{TechOverview}
+
+Appendices \ref{TLE} to \ref{PixelStream} list all Verilog code implementing the FPGA design. Among them, the top-level entity (TLE) contains plumbing for the other modules, depicted in Figure \ref{ModulesOverview}.
+
+\begin{figure}
+	\centering
+	\includegraphics{ModulesOverview}
+	\caption{Overview of all modules}
+	\label{ModulesOverview}
+\end{figure}
+
+## ClockDivider
+
+## PixelCursor
+
+## PixelAddr
+
+## PixelStream
+
+## I2CSubsystem
+
+## Scrapped Work
 
 \newpage
 # References
