@@ -1,4 +1,5 @@
 module Project(
+
 	// Buttons
 	input BTN0,							// Button I2C Trigger
 	input RST_N,						// Button Reset
@@ -30,6 +31,7 @@ module Project(
 
 	// GPIO for debugging
 	output [19:0] GPIO_1
+
 );
 
 	// Define Wires
@@ -49,12 +51,10 @@ module Project(
     assign ADV_Hsync = ~hsync;
     assign ADV_Vsync = ~vsync;
 
-	// Configure Clocks
-
-    ClockDividerPow2 #(1) div_pix_clk(.clk_in(FPGA_CLK1_50), .reset_n(RST_N), .clk_out(pix_clk));	// ADV_CLK leads pix_clk by 90 degrees
-    ClockDividerPow2 #(1) div_adv_clk(.clk_in(~FPGA_CLK1_50), .reset_n(RST_N), .clk_out(ADV_CLK));	// ADV_CLK leads pix_clk by 90 degrees
-    ClockDividerPow2 #(12) i2c_clkdiv(.clk_in(FPGA_CLK1_50), .reset_n(RST_N), .clk_out(i2c_clk));	//
-
+	// Configure Clocks, ADV leads pix_clk by 90 degrees
+    ClockDividerPow2 #(1) div_pix_clk(FPGA_CLK1_50,RST_N,pix_clk);
+    ClockDividerPow2 #(1) div_adv_clk(~FPGA_CLK1_50,RST_N,ADV_CLK);
+    ClockDividerPow2 #(12) i2c_clkdiv(FPGA_CLK1_50,RST_N,i2c_clk);
 
 	// Configure Hsync, Vsync, ADV_DE, And Pixel x and y values
     PixelCursor pixel_cursor(
@@ -77,25 +77,6 @@ module Project(
 
 	// Get Pixel Value from Pixel Address
 	PixelStream PixStream(pix_addr,ADV_D);
-
-
-//    reg [23:0] color = 24'h0;
-//    assign ADV_D = ADV_DE ? color : 24'h0;
-//    //assign ADV_D = ADV_DE ? 24'hff0000 : 24'h0;
-//
-//    always @(pix_y) begin
-//    	if (pix_y < 240) begin
-//    		if (pix_x < 320)
-//    			color <= 24'hff0000;
-//    		else
-//    			color <= 24'h00ff00;
-//    	end else begin
-//    		if (pix_x < 320)
-//    			color <= 24'h0000ff;
-//    		else
-//    			color <= 24'hffff00;
-//    	end
-//    end
 
 	// Synchronous button press trigger for I2C
     always @(posedge(i2c_clk))
@@ -147,6 +128,5 @@ module Project(
     assign DIO15	= 0;
 	// Assign wires to GPIO Pins
     assign GPIO_1	= {2'b0, DIO15, DIO14, DIO13, DIO12, DIO11, DIO10, DIO9, DIO8,  DIO7, DIO6, DIO5, DIO4, DIO3, DIO2, DIO1, DIO0, 2'b0};
-
 
 endmodule

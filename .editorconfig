@@ -1,5 +1,5 @@
 root = true
 
-[{*.v,*.tcl}]
+[{*.v,*.tcl,*.rmd}]
 indent_style = tab
 indent_size = 4
