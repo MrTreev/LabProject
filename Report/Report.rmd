@@ -80,8 +80,8 @@ Engineering
 \renewcommand{\footrulewidth}{1pt}
 \setlength{\headheight}{15pt}
 \fancyhf{}
-\fancyhead[L]{Laboratory 1}
-\fancyhead[R]{}
+\fancyhead[L]{Laboratory Project}
+\fancyhead[R]{Oliver Patterson \& Kaizhe Huang}
 \fancyfoot[C]{\thepage}
 \clearpage
 \pagenumbering{roman}
