@@ -4,10 +4,13 @@ date: "21/05/2022"
 fontsize: 10pt
 header-includes:
     - \usepackage{csquotes}
-    - \usepackage[australian]{babel}
+    - \usepackage[australian,british]{babel}
     - \usepackage{booktabs}
     - \usepackage{dcolumn}
     - \usepackage{wrapfig}
+    - \usepackage{fmtcount}
+    - \usepackage{amsmath}
+    - \usepackage{amssymb}
     - \usepackage{subcaption}
     - \usepackage{caption}
     - \usepackage{graphicx}
@@ -20,6 +23,8 @@ header-includes:
     - \floatplacement{table}{H}
     - \usepackage{tikz}
     - \usepackage{tikz-timing}
+    - \newcommand{\IsqrC}{I\textsuperscript{2}C}
+    - \newcommand{\textoverline}[1]{$\overline{\text{#1}}$}
 documentclass: "article"
 geometry: margin=2cm
 output:
@@ -100,7 +105,7 @@ The initial goal of the project was to allow the FPGA to receive video data from
 
 # Literature Search \label{Literature}
 
-## DE-10 Nano
+## DE-10 Nano \label{DE10Nano}
 
 The DE-10 Nano development board is based a Cyclone V SoC FPGA. Relavant components include:
 
@@ -112,7 +117,7 @@ The DE-10 Nano development board is based a Cyclone V SoC FPGA. Relavant compone
 
 ## ADV7513 \label{ADV7513}
 
-This HDMI transmittor IC simplifies the logic required to output a valid HDMI video signal. The IC, configurable via I\textsuperscript{2}C, supports vairous HDMI resolutions and colour formats. When correctly configured, ADV7513 receives a video signal from the FPGA, and outputs it through an HDMI connector, where it is interpreted by an HDMI monitor.
+This HDMI transmittor IC simplifies the logic required to output a valid HDMI video signal. The IC, configurable via \IsqrC, supports vairous HDMI resolutions and colour formats. When correctly configured, ADV7513 receives a video signal from the FPGA, and outputs it through an HDMI connector, where it is interpreted by an HDMI monitor.
 
 The input signals are:
 
@@ -122,7 +127,7 @@ The input signals are:
 * VSync
 * Clock
 
-\begin{figure}
+\begin{figure}[thbp]
 	\centering
 	\begin{tikzpicture}[x=0.015cm, y=-0.015cm, every node/.style={font={\sffamily}}]
 		\draw (0, 0) rectangle (800, 525);
@@ -145,7 +150,11 @@ The input signals are:
 	\label{VideoTimingGraph}
 \end{figure}
 
-\begin{figure}
+Each pixel is sent left-to-right, by scanlines, top-to-bottom, in each clock cycle. Figure \ref{VideoTimingGraph} shows the timings required for one frame. Each frame starts in a vertical front porch for the first several scanlines, where no data is sent. Then scalines containing frame data is sent. Followed by a vertical back porch, where no data is sent, and a vertical sync period, where a Vsync signal is asserted low. Each scanline starts in a horizotal front porch, where no data is sent, then data corresponding to this scanline is sent. Followed by a horizontal back porch, where no data is sent, and a horizontal sync period, where a Hsync signal is asserted low.
+
+Outside of the front and back porches and syncing periods, DE is asserted high, and D[23:0] will contain the colour of the current pixel. D[23:0] may be in many colour formats, depending on the configurations made via \IsqrC, but the simpliest format is RGB, where each of the red, blue and green colour components are encoded in 8-bit unsigned integers.
+
+\begin{figure}[thbp]
 	\centering
 	\begin{tikztimingtable}[timing/wscale=0.2]
 		D[23:0] & 5{X 12{D} 7{X}} 100{X} 2{X 12{D} 7{X}} \\
@@ -157,13 +166,21 @@ The input signals are:
 	\label{VideoTimingWave}
 \end{figure}
 
-Each pixel is sent left-to-right, by scanlines, top-to-bottom, in each clock cycle. Figure \ref{VideoTimingGraph} shows the timings required for one frame. Each frame starts in a vertical front porch for the first several scanlines, where no data is sent. Then scalines containing frame data is sent. Followed by a vertical back porch, where no data is sent, and a vertical sync period, where a Vsync signal is asserted low. Each scanline starts in a horizotal front porch, where no data is sent, then data corresponding to this scanline is sent. Followed by a horizontal back porch, where no data is sent, and a horizontal sync period, where a Hsync signal is asserted low.
-
-Outside of the front and back porches and syncing periods, DE is asserted high, and D[23:0] will contain the colour of the current pixel. D[23:0] may be in many colour formats, depending on the configurations made via I\textsuperscript{2}C, but the simpliest format is RGB, where each of the red, blue and green colour components are encoded in 8-bit unsigned integers.
-
 Figure \ref{VideoTimingWave} shows an example of the video signals. It sends 5 scanlines, in between are (respectively) the horizontal back porches, horizontal sync periods, and horizontal front porches. The signal then enters a vertical back porch, a vertical sync period, and a vertical front porch, before start sending the next frame.
 
-For this project, a video mode of $640 \times 480$ @ \SI{60}{Hz} is used, as it is simple and supported by most (if not all) monitors. This mode requires the video signal timings described in Table \ref{Video480Timing}.
+\begin{figure}[thbp]
+	\centering
+	\begin{tikztimingtable}
+		Clock & 4{LHHL} \\
+		D[23:0] & XX 4D{\ordinalnum{1} pixel} 4D{\ordinalnum{2} pixel} 4D{\ordinalnum{3} pixel} 2D{} \\
+	\end{tikztimingtable}
+	\caption{Video clock and data signal \parencite[26]{ADVHardwareUserGuide}}
+	\label{VideoClockData}
+\end{figure}
+
+The video clock signal marks the time at which the pixel values are sampled, its required relationship with data is shown on Figure \ref{VideoClockData}, i.e. There needs to be one clock cycle per pixel, and data needs to be held stable while clock transitions high-to-low-to-high.
+
+For this project, a video mode of $640 \times 480$ @ \SI{60}{Hz} is used, as it is simple and supported by most (if not all) monitors. This mode requires the video signal timing periods described in Table \ref{Video480Timing}. The frequency of the video clock can also be inferred from this information, as the total number of pixels for each frame is $800 \times 525 = 420000$, therefore $420000 \times 60 = 25200000$ pixels per second, translating to a \SI{25.2}{MHz} clock.
 
 \begin{table}
 	\hfill
@@ -195,13 +212,13 @@ For this project, a video mode of $640 \times 480$ @ \SI{60}{Hz} is used, as it 
 	\label{Video480Timing}
 \end{table}
 
-% TODO: I2C configs needed, source taken from Terasic demo
+\textcite{ADVProgrammingGuide} describes various registers that can be set to achieve any desired configuration. However, due to its lengthiness and complexity, it was deemed easier to reference an example design provided with \textcite{DE10Manual}. Their HDMI\_TX example uses the same colour format as this project, and is tested to be functional. Table \ref{ADVRegisters} lists the registers the example code sets, along with their comments. These registers also includes configuration of sound for the ADV7513, which remained unused in this project, but the \IsqrC configuration remained nontheless.
 
 \begin{table}
 	\centering
 	\begin{tabular}{lll}
 		\hline
-		Register Address & Register Value & Note \\
+		Register Address & Register Value & Comment \\
 		\hline
 		'h98 & 'h03 & Must be set to 0x03 for proper operation \\
 		'h01 & 'h00 & Set 'N' value at 6144 \\
@@ -248,37 +265,131 @@ The boot process is fascillitated by U-Boot. U-Boot may configure the FPGA, wher
 
 % TODO: share memory between FPGA and Linux
 
+## Never Gonna Give You Up
+
+\textit{Never Gonna Give You Up} is a popular music created by British musician Rick Astley \parencite{Astley1987}. Its music video has received increasing popularity as the practice of ``RickRoll"-ing, playing the music video in front of unaware inidividuals, become common place. Therefore it was selected as the video to play for this project, before the scope was reduced to only display a selection of iconic images within the music video.
+
 # Technical Work and Results \label{TechWork}
 
 ## Overview \label{TechOverview}
 
 Appendices \ref{TLE} to \ref{PixelStream} list all Verilog code implementing the FPGA design. Among them, the top-level entity (TLE) contains plumbing for the other modules, depicted in Figure \ref{ModulesOverview}.
 
-\begin{figure}
+\begin{figure}[htb]
 	\centering
 	\includegraphics{ModulesOverview}
 	\caption{Overview of all modules}
 	\label{ModulesOverview}
 \end{figure}
 
+The input FPGA\_CLK1\_50 is connected to the built-in \SI{50}{MHz} clock of the FPGA; BTN0 is connected to 1 of the 2 tactile buttons on the DE-10 Nano, it is debounced by external circuits on the board. The outputs named ADV\_\* all connect to the ADV7513 transmittor IC. Internal signals are denoted in lower case.
+
 ## ClockDividerPow2
 
-Clock dividers are needed to reduce the frequency of the \SI{50}{MHz} built-in FPGA clock. Specifically, there are 2 slower clocks needed:
+Clock dividers are needed to reduce the frequency of the \SI{50}{MHz} built-in FPGA clock. Specifically, there are 3 slower clocks needed:
 
-* The I\textsuperscript{2}C interface of ADV7513 does not function with a high frequency, therefore the clock is divided by 4096 into \SI{12.20703125}{kHz} before being used by the I\textsuperscript{2}C controller.
-* According to Table \ref{Video480Timing}, the total number of pixels each frame is $800 \times 525 = 420000$, which means there are $420000 \times 60 = 25200000$ pixels every second, which requires a \SI{25.2}{MHz} clock. This can be approximated by dividing the built-in clock by 2 to obtain a \SI{25}{MHz} clock.
+\begin{description}
+	\item[i2c\_clk] The \IsqrC interface of ADV7513 does not function with a high frequency, therefore the clock is divided by 4096 into \SI{12.20703125}{kHz} before being used by the \IsqrC controller.
+	\item[ADV\_CLK] As established in Section \ref{ADV7513}, the ADV7513 transmittor IC requires a \SI{25.2}{MHz} clock signal. This can be approximated by dividing FPGA\_CLK1\_50 by 2 to obtain a \SI{25}{MHz} clock.
+	\item[pix\_clk] As shown in Figure \ref{VideoClockData}, ADV\_CLK must not be the same as the clock that updates D[23:0], instead, ADV\_CLK needs to be \ang{90} earliar in phase than this clock.
+\end{description}
 
 The module ClockDividerPow2 divides an input clock by a factor of $2^n$, where $n$ is a parameter. This is implemented by an $n$-bit counter that increses by 1 at each rising clock edge. The MSB of the counter is treated as the output clock, whose frequency will then be
 
 $$f_\text{out} = \frac{f_\text{in}}{2^n}$$
 
-The clock divider used to be able to divide clocks by an arbitrary factor, where the output is produced by comparing the counter content to half of the dividing factor. However, doing so appears to prompt difficult-to-track issues, thus the design is simplified to only divide by a power of 2.
+The phase shift between ADV\_CLK and pix\_clk are created by inverting the FPGA\_CLK1\_50 for the clock divider generating ADV\_CLK, but not inverting the other. The result is illustrated in Figure \ref{ClockDividerPhaseShift}.
+
+\begin{figure}
+	\centering
+	\begin{tikztimingtable}
+		\textoverline{FPGA\_CLK1\_50} & [L] 8{HL} \\
+		ADV\_CLK & [L] 4{HHLL} \\
+		FPGA\_CLK1\_50 & [L] 8{LH} \\
+		pix\_clk & [L] 4{LHHL} \\
+		ADV\_D[23:0] & X 3{4D{}} 3D{} \\
+	\end{tikztimingtable}
+	\caption{Creating phase shift between divided clocks}
+	\label{ClockDividerPhaseShift}
+\end{figure}
+
+The clock divider used to be able to divide clocks by an arbitrary factor, where the output is produced by comparing the counter content to half of the dividing factor. However, doing so appears to prompt difficult-to-track issues, thus the design is simplified to only divide by a power of 2, and renamed from ClockDivider to ClockDividerPow2.
+
+ADV\_CLK and pix\_clk used to be more closely approximated to the ideal \SI{25.2}{MHz} frequency, derived with a PLL. This is also ditched as the PLL also prompts difficult-to-track issues within the generated clocks, and a simplier \SI{25}{MHz} clock appears to be functional.
 
 ## PixelCursor
+
+2 counters are used to generated the video control ignals of DE, Vsync and Hsync, as specified in Figure \ref{VideoTimingGraph} and Table \ref{Video480Timing}. The counter hcount stores the horizontal coordinate of the pixel being drawn, increases on every rising edge of pix\_clk, and its value $c_h \in \mathbb{Z} \cap [0, 799]$. The counter vcount stores the vertical coordinate of the pixel being drawn, increases whenever hcount overflows from 799 to 0, and its value $c_v \in \mathbb{Z} \cap [0, 524]$. For simplicity, the $(0, 0)$ position is defined to be at the top-left corner of active frame data, after the horizontal and vertical front porches (Figure \ref{PixelCursorCoordinate}). This effectively moves the front porches to be positioned after the sync periods, from the perspective of the signal receiver, no difference is made, but from the perspective of within the FPGA design, this decision has the advantage of hcount and vcount directly corresponds to the coordinates of the actual pixel being displayed, when video is active ($c_h < 640$ and $c_v < 480$). Therefore, their values can be directly output as pix\_x and pix\_y, which are received by PixelAddr and PixelStream to decide what pixel colours to draw.
+
+\begin{figure}
+	\centering
+	\begin{tikzpicture}[x=0.015cm, y=-0.015cm, >=latex, every node/.style={font={\sffamily}}]
+		\draw (0, 0) rectangle (800, 525);
+		\fill[orange!10!white] (16, 10) rectangle (656, 490);
+		\fill[gray] (704, 0) rectangle (800, 525);
+		\fill[gray] (0, 523) rectangle (800, 525);
+		\draw (16, 0) -- (16, 525);
+		\draw (656, 0) -- (656, 525);
+		\draw (0, 10) -- (800, 10);
+		\draw (0, 490) -- (800, 490);
+		\node at (336, 250) {Frame data};
+		\draw[|-|,thick,black] (704, 0) -- node [above,xshift=0.6cm] {Horizontal sync} (800, 0);
+		\draw[|-|,thick,black] (0, 523) -- node [left,yshift=-0.2cm] {Vertical sync} (0, 525);
+		\draw[thick,->] (-20, 10) -- (820, 10);
+		\draw[thick,->] (16, -20) -- (16, 545);
+		\node at (16, 10) [circle,fill,orange,inner sep=0.05cm] {};
+		\node at (16, 10) [orange,above left] {(0, 0)};
+		\node at (656, 490) [circle,fill,orange,inner sep=0.05cm] {};
+		\node at (656, 490) [orange,above left] {(640, 480)};
+		\node at (704, 523) [circle,fill,black,inner sep=0.05cm] {};
+		\node at (704, 523) [above left] {(688, 513)};
+		\node at (800, 525) [circle,fill,black,inner sep=0.05cm] {};
+		\node at (800, 525) [below right] {(784, 515)};
+	\end{tikzpicture}
+	\caption{Coordinate system established by PixelCursor}
+	\label{PixelCursorCoordinate}
+\end{figure}
+
+The control signals can then be generated by comparing the counters to some constants:
+
+$$
+\text{DE} = \begin{cases}
+	1 & c_h < 640,\ c_v < 480 \\
+	0 & \text{otherwise}
+\end{cases}
+\quad
+\text{Hsync} = \begin{cases}
+	1 & 688 \leq c_h < 784 \\
+	0 & \text{otherwise}
+\end{cases}
+\quad
+\text{Vsync} = \begin{cases}
+	1 & 513 \leq c_v < 515 \\
+	0 & \text{otherwise}
+\end{cases}
+$$
 
 ## PixelAddr
 
 ## PixelStream
+
+\textcite{Astley1987} is cropped and scaled to a resolution of $160 \times 120$, each frame of the video is extracted as 19200 raw pixel values, in 24-bit RGB format which can be directly output to the ADV7513. Initially, a raw binary file containing all frames in 10 frames per second was planned to be stored onto a Micro-SD card. The controller software would copy each frame of the video into RAM consecutively every \SI{0.1}{s}, where it is read by the FPGA and sent to the ADV7513. However, as the project scopes was reduced, video data needed to be stored on the FPGA itself. Since the memory available on the FPGA is severely limited, only 2 frames is fit into the module.
+
+The 2 frames of data is encoded into \texttt{.mem} format, a plain text format where each line specifies 1 word of data in hexadecimal, in this instance, 24 bits. PixelStream takes an address to this block of memory, and outputs the corresponding pixel value within the same clock cycle.
+
+The downsides to this approach are severely increased compilation time and logical element usage. An attempt at mitigating these issues was made, by using a ROM IP block. An additional advantage to that approach is more available memory space, which can accomodate more than 5 frames. However, a ROM IP block requires 3 clock cycles for its output to respond to the input address, making it unfit for the current design (Figure \ref{ROMIPOutput}).
+
+\begin{figure}
+	\centering
+	\begin{tikztimingtable}[timing/wscale=5]
+		Clock & [L] 6{0.5H0.5L} \\
+		Address & [X] D{0} D{1} D{2} D{3} D{4} D{5} \\
+		Desired output & [X] D{mem[0]} D{mem[1]} D{mem[2]} D{mem[3]} D{mem[4]} D{mem[5]} \\
+		Actual output & [X] U{} U{} D{mem[0]} D{mem[1]} D{mem[2]} D{mem[3]} \\
+	\end{tikztimingtable}
+	\caption{Desired and actual output of PixelStream if it used an ROM IP block}
+	\label{ROMIPOutput}
+\end{figure}
 
 ## I2CSubsystem
 
@@ -292,10 +403,10 @@ I2CController receives an Op[1:0] signal specifying what to do to the bus (Table
 		\hline
 		Op[1:0] & Name & Description \\
 		\hline
-		00 & STOP & Stop the I\textsuperscript{2}C transaction, release the bus, or keep it released. \\
-		01 & START & Start a I\textsuperscript{2}C transaction, or repeat start the transaction without releasing the bus. \\
+		00 & STOP & Stop the \IsqrC transaction, release the bus, or keep it released. \\
+		01 & START & Start a \IsqrC transaction, or repeat start the transaction without releasing the bus. \\
 		10 & CONTINUE & Continue sending the the next byte within the ongoing transaction. \\
-		11 & RESTART & Stop and start the I\textsuperscript{2}C transaction, releasing the bus in the process. \\
+		11 & RESTART & Stop and start the \IsqrC transaction, releasing the bus in the process. \\
 		\hline
 	\end{tabular}
 	\caption{Meanings of the Op[1:0] signal in I2CSubsystem}
@@ -323,7 +434,10 @@ I2CController receives an Op[1:0] signal specifying what to do to the bus (Table
 
 \begin{figure}[p]
 	\centering
-	\scalebox{0.5}{\input{Images/I2CControllerStates.latex}}
+	\scalebox{0.5}{
+		\sffamily
+		\input{Images/I2CControllerStates.latex}
+	}
 	\caption{State diagram of I2CController}
 	\label{I2CControllerStateDiagram}
 \end{figure}
@@ -332,15 +446,22 @@ Additionally, I2CController outputs an output Completed, which is high only when
 
 I2CDataFeed provides the Op[1:0] and Data[7:0] signals that I2CController needs, they are also determined by a state machine. On reset, its state is 0, where Op[1:0] is STOP, thus keeping the I2CController in idle. When an Update signal is received, it progresses to the next state, looping back to state 0 after the last state. This state machines contains 94 states, with all other states besides 0 containing some non-STOP Op[1:0] and a byte of Data[7:0], they list the sequence of data that that needs to be sent in order to configure the ADV7513 IC.
 
-The Update input of I2CDataFeed is connected to the Completed output, forming a feedback loop: When a byte transfer is completed, I2CController notifies I2CDataFeed to update its Op[1:0] and Data[7:0], then I2CController carries out the next operation. When I2CDataFeed reaches state 0, the loop stops. This also means that both state machines will stay idle upon reset, therefore an external stimulus from a button is also connected to Update. When I2CDataFeed is in state 0 and BTN0 on the DE-10 Nano is pressed, it enters state 1, instructing I2CController to start the feedback loop.
+\begin{figure}
+	\centering
+	\includegraphics{I2CSubsystemDiagram}
+	\caption{Block diagram of I2CSubsystem}
+	\label{I2CSubsystemDiagram}
+\end{figure}
+
+The Update input of I2CDataFeed is connected to the Completed output, forming a feedback loop (Figure \ref{I2CSubsystemDiagram}): When a byte transfer is completed, I2CController notifies I2CDataFeed to update its Op[1:0] and Data[7:0], then I2CController carries out the next operation. When I2CDataFeed reaches state 0, the loop stops. This also means that both state machines will stay idle upon reset, therefore an external stimulus from a button is also connected to Update. When I2CDataFeed is in state 0 and BTN0 on the DE-10 Nano is pressed, it enters state 1, instructing I2CController to start the feedback loop.
 
 For each register that needs to be set within the ADV7513, 5 steps are involved:
 
-1. Start an I\textsuperscript{2}C transaction.
+1. Start an \IsqrC transaction.
 2. Send the slave address of the ADV7513, which is set 'h72 on the DE-10 Nano.
 3. Send the register address.
 4. Send the value to be written to the register.
-5. Stop the I\textsuperscript{2}C transaction.
+5. Stop the \IsqrC transaction.
 
 To set the registers listed in Table \ref{ADVRegisters}, I2CDataFeed contains the states partially listed in Table \ref{I2CDataFeedStates}, which produces Figure \ref{I2CSubsystemWave}, the omitted states can be easily inferred by referencing Table \ref{ADVRegisters}.
 
@@ -352,11 +473,11 @@ To set the registers listed in Table \ref{ADVRegisters}, I2CDataFeed contains th
 		\hline
 		0 & STOP & 'h00 \\
 		1 & START & 'h72 (slave address) \\
-		2 & CONTINUE & 'h98 (first register address) \\
-		3 & CONTINUE & 'h03 (first register value) \\
+		2 & CONTINUE & 'h98 (\ordinalnum{1} register address) \\
+		3 & CONTINUE & 'h03 (\ordinalnum{1} register value) \\
 		4 & RESTART & 'h72 (slave address) \\
-		5 & CONTINUE & 'h01 (second register address) \\
-		6 & CONTINUE & 'h00 (second register value) \\
+		5 & CONTINUE & 'h01 (\ordinalnum{2} register address) \\
+		6 & CONTINUE & 'h00 (\ordinalnum{2} register value) \\
 		7 & RESTART & 'h72 (slave address) \\
 		\multicolumn{3}{c}{$\vdots$} \\
 		93 & CONTINUE & 'h7d (last register value) \\
