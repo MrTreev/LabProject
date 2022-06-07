@@ -312,6 +312,15 @@ The phase shift between ADV\_CLK and pix\_clk are created by inverting the FPGA\
 	\label{ClockDividerPhaseShift}
 \end{figure}
 
+Figure \ref{MSClockDividerPow2} shows a ModelSim simulation of this module with a power of 2, thus division by 4.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\linewidth]{MSClockDividerPow2}
+	\caption{ClockDividerPow2 simulated in ModelSim, ($n = 2$)}
+	\label{MSClockDividerPow2}
+\end{figure}
+
 The clock divider originally divided clocks by an arbitrary factor, where the output is produced by comparing the counter content to half of the dividing factor. However, doing so caused strange behaviour in the resultant signals when driven at a high clockrate, thus the design is simplified to only divide by a power of 2, and renamed from ClockDivider to ClockDividerPow2.
 
 ADV\_CLK and pix\_clk were originally designed to run at the specified frequency in the ADV7513 Datasheet of \SI{25.2}{MHz}, which was created by a PLL IP Block. This caused timing issues with the HDMI monitor when connected. A simplier \SI{25}{MHz} clock appears to be functional.
@@ -368,19 +377,27 @@ $$
 \end{cases}
 $$
 
-## PixelAddr
+Figure \ref{MSPixelCursor} shows a ModelSim simulation of this module in 2 scales, to showcase Hsync and Vsync.
 
-PixelAddr works as an address decoder for the pixel data based on the `xpos` and `ypos` inputs. This is done with the formula
+\begin{figure}
+	\centering
+	\includegraphics[width=\linewidth]{MSPixelCursor_small}
+	\includegraphics[width=\linewidth]{MSPixelCursor_large}
+	\caption{PixelCursotr simulated in ModelSim}
+	\label{MSPixelCursor}
+\end{figure}
 
-\ $$Address = \frac{x_{pos}}{4} \cdot \frac{y_{pos}}{4} + frame \cdot 19200$$
-
-with frame being the frame number starting at zero, as we only have two frames, and two frames switching at 60Hz would be a horrible sight to behold the frames were only incremented if a counter was above 32, making the frames switch at just under 2Hz. This creates an address which references the pixels by number from left to right in each scanline. This is then fed into the PixelStream module to extract the pixel data.
-
-## PixelStream \label{pixel}
+## PixelAddr and PixelStream \label{pixel}
 
 \textcite{Astley1987} is cropped and scaled to a resolution of $160 \times 120$, each frame of the video is extracted as 19200 raw pixel values, in 24-bit RGB format which can be directly output to the ADV7513. Initially, a raw binary file containing all frames in 10 frames per second was planned to be stored onto a Micro-SD card. The controller software would copy each frame of the video into RAM consecutively every \SI{0.1}{s}, where it would be read by the FPGA and sent to the ADV7513. However, as the project scope was reduced, video data needed to be stored on the FPGA itself. Since the memory available on the FPGA is severely limited, only two frames fit into the memory.
 
-The 2 frames of data is encoded into \texttt{.mem} format, a plain text format where each line specifies 1 word of data in hexadecimal, in this instance, 24 bits. PixelStream takes an address to this block of memory, and outputs the corresponding pixel value within the same clock cycle.
+PixelAddr works as an address decoder for the pixel data based on the `xpos` and `ypos` inputs. This is done with the formula
+
+\ $$\text{Address} = \frac{x_\text{pos}}{4} \cdot \frac{y_\text{pos}}{4} + \text{frame} \cdot 19200$$
+
+with frame being the frame number starting at zero, as we only have two frames, and two frames switching at \SI{60}{Hz} would be a horrible sight to behold the frames were only incremented if a counter was above 32, making the frames switch at just under \SI{2}{Hz}. This creates an address which references the pixels by number from left to right in each scanline. This is then fed into the PixelStream module to extract the pixel data.
+
+The 2 frames of data is encoded into \texttt{.mem} format, a plain text format where each line specifies 1 word of data in hexadecimal, in this instance, 24 bits. PixelStream takes a memory address calculated by PixelAddr, and outputs the corresponding pixel value from this block of memory, within the same clock cycle.
 
 The downsides to this approach are severely increased compilation time and logical element usage. An attempt at mitigating these issues was made, by using a ROM IP block. An additional advantage to that approach is more available memory space, which can accomodate more than 5 frames. However, a ROM IP block requires 3 clock cycles for its output to respond to the input address, making it unfit for the current design.
 
@@ -496,7 +513,8 @@ To set the registers listed in Table \ref{ADVRegisters}, I2CDataFeed contains th
 \end{figure}
 
 # Conclusion
-The project was successful in the reduced scope of two alternating frames being displayed on the monitor using the ADV7513 through the FPGA on the DE-10 Nano. One of the lessons learned during testing was that the signals should be tested using equipment that reaches sample rates of at least three times the frequency of the component signal, this was found when low sampling rates produced artifacts in the waveform analysis performed on the 25MHz clock signals. Another lesson learned was the amount of time initialising memory in the FPGA fabric takes, the compilation time increases to over minutes when one frame is imported into memory when using the method discribed in \ref{pixel}. Future work for this project could include moving the memory storage to a ROM IP block, incorporating the HPS to load image data from the SD card into RAM to display more of the video and increasing the video quality to the full 640x480 resolution currently set as the display resolution.
+
+The project was successful in the reduced scope of two alternating frames being displayed on the monitor using the ADV7513 through the FPGA on the DE-10 Nano. One of the lessons learned during testing was that the signals should be tested using equipment that reaches sample rates of at least three times the frequency of the component signal, this was found when low sampling rates produced artifacts in the waveform analysis performed on the \SI{25}{MHz} clock signals. Another lesson learned was the amount of time initialising memory in the FPGA fabric takes, the compilation time increases to over minutes when one frame is imported into memory when using the method discribed in \ref{pixel}. Future work for this project could include moving the memory storage to a ROM IP block, incorporating the HPS to load image data from the SD card into RAM to display more of the video and increasing the video quality to the full $640 \times 480$ resolution currently set as the display resolution.
 
 \newpage
 # References
