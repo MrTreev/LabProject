@@ -90,7 +90,9 @@ Engineering
 \fancyfoot[C]{\thepage}
 \clearpage
 \pagenumbering{roman}
+
 # Executive Summary {-}
+
 This project uses the DE-10 Nano development board from Terasic Inc and uses the FPGA component to configure the integrated ADV7513 HDMI controller to repeatedly display two frames of the iconic Never Gonna Give You Up music video by Rick Astley to a monitor via an HDMI to DVI cable.
 
 \newpage
@@ -102,7 +104,7 @@ This project uses the DE-10 Nano development board from Terasic Inc and uses the
 
 In this project, an FPGA design is created for the DE-10 Nano development board to be capable of displaying custom images to an HDMI monitor. The design is developed with Quartus Prime and written in Verilog HDL.
 
-The initial goal of the project was to allow the FPGA to receive video data from a controller software running on the hard processor, and forwards such video to an HDMI monitor. However, due to time constraint and technical difficulty, the goal of the project is reduced to only displaying images hardcoded within the FPGA.
+The initial goal of the project was to allow the FPGA to receive video data from a controller software running on the hard processor, and forwards such video to an HDMI monitor. However, due to time constraint and technical difficulty, the goal of the project is reduced to only displaying images hard-coded within the FPGA.
 
 # Literature Search \label{Literature}
 
@@ -118,7 +120,7 @@ The DE-10 Nano development board is based a Cyclone V SoC FPGA. Relavant compone
 
 ## ADV7513 \label{ADV7513}
 
-This HDMI transmittor IC simplifies the logic required to output a valid HDMI video signal. The IC, configurable via \IsqrC, supports vairous HDMI resolutions and colour formats. When correctly configured the ADV7513 receives a video signal from the FPGA and outputs it through an HDMI connector, where it is interpreted by an HDMI monitor.
+This HDMI transmitter IC simplifies the logic required to output a valid HDMI video signal. The IC, configurable via \IsqrC, supports various HDMI resolutions and colour formats. When correctly configured the ADV7513 receives a video signal from the FPGA and outputs it through an HDMI connector, where it is interpreted by an HDMI monitor.
 
 The input signals are:
 
@@ -151,9 +153,9 @@ The input signals are:
 	\label{VideoTimingGraph}
 \end{figure}
 
-Each pixel is sent left-to-right, by scanlines, top-to-bottom, in each clock cycle. Figure \ref{VideoTimingGraph} shows the timings required for one frame. Each frame starts in a vertical front porch for the first several scanlines, where no data is sent. Then scalines containing frame data is sent. Followed by a vertical back porch, where no data is sent, and a vertical sync period, where a Vsync signal is asserted low. Each scanline starts in a horizotal front porch, where no data is sent, then data corresponding to this scanline is sent. Followed by a horizontal back porch, where no data is sent, and a horizontal sync period, where the Hsync signal is asserted low.
+Each pixel is sent left-to-right, by scan-lines, top-to-bottom, in each clock cycle. Figure \ref{VideoTimingGraph} shows the timings required for one frame. Each frame starts in a vertical front porch for the first several scan-lines, where no data is sent. Then scan-lines containing frame data is sent. Followed by a vertical back porch, where no data is sent, and a vertical sync period, where a Vsync signal is asserted low. Each scan-line starts in a horizotal front porch, where no data is sent, then data corresponding to this scan-line is sent. Followed by a horizontal back porch, where no data is sent, and a horizontal sync period, where the Hsync signal is asserted low.
 
-Outside of the front and back porches and syncing periods, DE is asserted high, and D[23:0] will contain the colour of the current pixel. D[23:0] may be in many colour formats, depending on the configurations made via \IsqrC, but the simpliest format is RGB, where each of the red, blue and green colour components are encoded in 8-bit unsigned integers.
+Outside of the front and back porches and syncing periods, DE is asserted high, and D[23:0] will contain the colour of the current pixel. D[23:0] may be in many colour formats, depending on the configurations made via \IsqrC, but the simplest format is RGB, where each of the red, blue and green colour components are encoded in 8-bit unsigned integers.
 
 \begin{figure}[thbp]
 	\centering
@@ -266,7 +268,7 @@ The boot process is facilitated by U-Boot. U-Boot may configure the FPGA, where 
 
 ## Never Gonna Give You Up
 
-\textit{Never Gonna Give You Up} is a popular music created by British musician Rick Astley \parencite{Astley1987}. Its music video has received increasing popularity as the practice of ``RickRoll-ing", playing the music video in front of unaware individuals, has become common-place. Therefore it was selected as the video to play for this project. Due to time constrains, however, the scope was reduced to only display a selection of iconic images within the music video.
+\textit{Never Gonna Give You Up} is a popular music created by British musician Rick Astley \parencite{Astley1987}. Its music video has received increasing popularity as the practice of ``RickRolling", playing the music video in front of unaware individuals, has become common-place. Therefore it was selected as the video to play for this project. Due to time constrains, however, the scope was reduced to only display a selection of iconic images within the music video.
 
 # Technical Work and Results \label{TechWork}
 
@@ -283,21 +285,25 @@ Appendices \ref{TLE} to \ref{PixelStream} list all Verilog code used to implemen
 
 The input FPGA\_CLK1\_50 is connected to the built-in \SI{50}{MHz} clock of the FPGA; BTN0 is connected to 1 of the 2 tactile buttons on the DE-10 Nano, it is debounced by external circuits on the board. The outputs named ADV\_\* all connect to the ADV7513 transmitter IC. Internal signals are denoted in lower case.
 
+\newpage
+
 ## ClockDividerPow2
+
+![Clock Divider RTL](Images/ClockDividerPow2.pdf)
 
 Clock dividers are needed to reduce the frequency of the \SI{50}{MHz} built-in FPGA clock. Specifically, there are 3 slower clocks needed:
 
 \begin{description}
 	\item[i2c\_clk] The \IsqrC  interface of ADV7513 does not function with a high frequency, therefore the clock is divided by 4096 before being used by the \IsqrC controller.
 	\item[ADV\_CLK] As established in Section \ref{ADV7513}, the ADV7513 transmitter IC requires a \SI{25.2}{MHz} clock signal. This can be approximated by dividing FPGA\_CLK1\_50 by 2 to obtain a \SI{25}{MHz} clock.
-	\item[pix\_clk] As shown in Figure \ref{VideoClockData}, ADV\_CLK must not be the same as the clock that updates D[23:0], instead, ADV\_CLK needs to be \ang{90} earliar in phase than this clock.
+	\item[pix\_clk] As shown in Figure \ref{VideoClockData}, ADV\_CLK must not be the same as the clock that updates D[23:0], instead, ADV\_CLK needs to be \ang{90} earlier in phase than this clock.
 \end{description}
 
 The module ClockDividerPow2 divides an input clock by a factor of $2^n$, where $n$ is a parameter. This is implemented by an $n$-bit counter that increments by 1 at each rising clock edge. The MSB of the counter is treated as the output clock, whose frequency will then be
 
 \ $$f_\text{out} = \frac{f_\text{in}}{2^n}$$
 
-The phase shift between ADV\_CLK and pix\_clk are created by inverting the FPGA\_CLK1\_50 before the ADV\_CLK clock dividerm but not inverting the other. The result is illustrated in Figure \ref{ClockDividerPhaseShift}.
+The phase shift between ADV\_CLK and pix\_clk are created by inverting the FPGA\_CLK1\_50 before the ADV\_CLK clock divider but not inverting the other. The result is illustrated in Figure \ref{ClockDividerPhaseShift}.
 
 \begin{figure}
 	\centering
@@ -314,9 +320,11 @@ The phase shift between ADV\_CLK and pix\_clk are created by inverting the FPGA\
 
 The clock divider originally divided clocks by an arbitrary factor, where the output is produced by comparing the counter content to half of the dividing factor. However, doing so caused strange behaviour in the resultant signals when driven at a high clockrate, thus the design is simplified to only divide by a power of 2, and renamed from ClockDivider to ClockDividerPow2.
 
-ADV\_CLK and pix\_clk were originally designed to run at the specified frequency in the ADV7513 Datasheet of \SI{25.2}{MHz}, which was created by a PLL IP Block. This caused timing issues with the HDMI monitor when connected. A simplier \SI{25}{MHz} clock appears to be functional.
+ADV\_CLK and pix\_clk were originally designed to run at the specified frequency in the ADV7513 Data-sheet of \SI{25.2}{MHz}, which was created by a PLL IP Block. This caused timing issues with the HDMI monitor when connected. A simpler \SI{25}{MHz} clock appears to be functional.
 
 ## PixelCursor
+
+![Pixel Cursor RTL](Images/PixelCursor.pdf){width=40%}
 
 Two counters are used to generated the video control Signals of DE, Vsync and Hsync, as specified in Figure \ref{VideoTimingGraph} and Table \ref{Video480Timing}. The counter hcount stores the horizontal coordinate of the pixel being drawn, increasing on every rising edge of pix\_clk, and its possible values can be defined by $c_h \in \mathbb{Z} \cap [0, 799]$. The counter vcount stores the vertical coordinate of the pixel being drawn, increasing whenever hcount overflows from 799 to 0, and its possible values can be defined by $c_v \in \mathbb{Z} \cap [0, 524]$. For simplicity, the $(0, 0)$ position is defined to be at the top-left corner of active frame data, after the horizontal and vertical front porches (Figure \ref{PixelCursorCoordinate}). This effectively moves the front porches to be positioned after the sync periods, from the perspective of the signal receiver, no difference is made, but from within the FPGA design, this decision has the advantage of hcount and vcount directly corresponding to the coordinates of the actual pixel being displayed, when video is active ($c_h < 640$ and $c_v < 480$). Therefore, their values can be directly output as pix\_x and pix\_y, which are received by PixelAddr and PixelStream to decide what pixel colours to draw.
 
@@ -370,13 +378,19 @@ $$
 
 ## PixelAddr
 
+![Pixel Address RTL](Images/PixelAddr.pdf)
+
 PixelAddr works as an address decoder for the pixel data based on the `xpos` and `ypos` inputs. This is done with the formula
 
 \ $$Address = \frac{x_{pos}}{4} \cdot \frac{y_{pos}}{4} + frame \cdot 19200$$
 
-with frame being the frame number starting at zero, as we only have two frames, and two frames switching at 60Hz would be a horrible sight to behold the frames were only incremented if a counter was above 32, making the frames switch at just under 2Hz. This creates an address which references the pixels by number from left to right in each scanline. This is then fed into the PixelStream module to extract the pixel data.
+with frame being the frame number starting at zero, as we only have two frames, and two frames switching at 60Hz would be a horrible sight to behold the frames were only incremented if a counter was above 32, making the frames switch at just under 2Hz. This creates an address which references the pixels by number from left to right in each scan-line. This is then fed into the PixelStream module to extract the pixel data.
+
+\newpage
 
 ## PixelStream \label{pixel}
+
+![Pixel Stream RTL](Images/PixelStream.pdf)
 
 \textcite{Astley1987} is cropped and scaled to a resolution of $160 \times 120$, each frame of the video is extracted as 19200 raw pixel values, in 24-bit RGB format which can be directly output to the ADV7513. Initially, a raw binary file containing all frames in 10 frames per second was planned to be stored onto a Micro-SD card. The controller software would copy each frame of the video into RAM consecutively every \SI{0.1}{s}, where it would be read by the FPGA and sent to the ADV7513. However, as the project scope was reduced, video data needed to be stored on the FPGA itself. Since the memory available on the FPGA is severely limited, only two frames fit into the memory.
 
@@ -384,7 +398,11 @@ The 2 frames of data is encoded into \texttt{.mem} format, a plain text format w
 
 The downsides to this approach are severely increased compilation time and logical element usage. An attempt at mitigating these issues was made, by using a ROM IP block. An additional advantage to that approach is more available memory space, which can accomodate more than 5 frames. However, a ROM IP block requires 3 clock cycles for its output to respond to the input address, making it unfit for the current design.
 
+\newpage
+
 ## I2CSubsystem
+
+![I2C Subsystem RTL](Images/I2CSubsystem.pdf)
 
 This module is composed of 2 submodules, I2CController and I2CDataFeed.
 
@@ -496,7 +514,7 @@ To set the registers listed in Table \ref{ADVRegisters}, I2CDataFeed contains th
 \end{figure}
 
 # Conclusion
-The project was successful in the reduced scope of two alternating frames being displayed on the monitor using the ADV7513 through the FPGA on the DE-10 Nano. One of the lessons learned during testing was that the signals should be tested using equipment that reaches sample rates of at least three times the frequency of the component signal, this was found when low sampling rates produced artifacts in the waveform analysis performed on the 25MHz clock signals. Another lesson learned was the amount of time initialising memory in the FPGA fabric takes, the compilation time increases to over minutes when one frame is imported into memory when using the method discribed in \ref{pixel}. Future work for this project could include moving the memory storage to a ROM IP block, incorporating the HPS to load image data from the SD card into RAM to display more of the video and increasing the video quality to the full 640x480 resolution currently set as the display resolution.
+The project was successful in the reduced scope of two alternating frames being displayed on the monitor using the ADV7513 through the FPGA on the DE-10 Nano. One of the lessons learned during testing was that the signals should be tested using equipment that reaches sample rates of at least three times the frequency of the component signal, this was found when low sampling rates produced artifacts in the waveform analysis performed on the 25MHz clock signals. Another lesson learned was the amount of time initialising memory in the FPGA fabric takes, the compilation time increases to over minutes when one frame is imported into memory when using the method described in \ref{pixel}. Future work for this project could include moving the memory storage to a ROM IP block, incorporating the HPS to load image data from the SD card into RAM to display more of the video and increasing the video quality to the full 640x480 resolution currently set as the display resolution.
 
 \newpage
 # References
@@ -1491,3 +1509,27 @@ module PixelStream(
 	assign pixel = value;
 endmodule
 ```
+
+## Oscilloscope Overview of I2CBlock
+
+![Oscilloscope Overview of I2CBlock](Images/ScopeI2CBlock.png)
+
+## Oscilloscope Beginning of I2C
+
+![Oscilloscope Beginning of I2C](Images/ScopeI2CStart.png)
+
+## Oscilloscope End of I2C
+
+![Oscilloscope End of I2C](Images/ScopeI2CEnd.png)
+
+## Oscilloscope Middle of I2C
+
+![Oscilloscope Middle of I2C](Images/ScopeI2CContinue.png)
+
+## Oscilloscope timing of Hsync
+
+![Oscilloscope timing of Hsync](Images/ScopeTimingHsync.png)
+
+## Oscilloscope timing of Vsync
+
+![Oscilloscope timing of Vsync](Images/ScopeTimingVsync.png)
